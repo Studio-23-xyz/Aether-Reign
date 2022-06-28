@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameGrid : MonoBehaviour
 {
+    public static GameGrid Instance;
     [SerializeField] private int _height;
     [SerializeField] private int _width;
     [SerializeField] private float _gridSpacing;
@@ -14,7 +16,52 @@ public class GameGrid : MonoBehaviour
 
     private void Start()
     {
-        
+        Instance = this;
+    }
+
+    public List<Vector3> GetPath(Vector3 fromPosition, Vector3 ToPosition)
+    {
+        GetXZ(fromPosition, out int fromX, out int fromZ);
+        GetXZ(ToPosition, out int toX, out int toZ);
+
+        List<Vector3> path = new List<Vector3>();
+
+        while (toX > fromX)
+        {
+            fromX++;
+            path.Add(GetWorldPosition(fromX, fromZ));
+        }
+
+        while (toX < fromX)
+        {
+            fromX--;
+            path.Add(GetWorldPosition(fromX, fromZ));
+        }
+
+        while (toZ > fromZ)
+        {
+            fromZ++;
+            path.Add(GetWorldPosition(fromX, fromZ));
+        }
+
+        while (toZ < fromZ)
+        {
+            fromZ--;
+            path.Add(GetWorldPosition(fromX, fromZ));
+        }
+
+        return path;
+    }
+
+    private Vector3 GetWorldPosition(int x, int y)
+    {
+        return new Vector3(x, 0f, y) * _gridSpacing;
+    }
+
+    private void GetXZ(Vector3 worldPosition, out int x, out int z)
+    {
+        x = Mathf.FloorToInt(worldPosition.x / _gridSpacing);
+        z = Mathf.FloorToInt(worldPosition.z / _gridSpacing);
     }
 
     public void DebugButtonClickGridGeneration()
@@ -59,7 +106,6 @@ public class GameGrid : MonoBehaviour
         {
             for (int x = 0; x < _width; x++)
             {
-                
                 AssignWalkableNeighbors(x, y);
             }
         }

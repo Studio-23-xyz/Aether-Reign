@@ -27,4 +27,19 @@ public class GridCell : MonoBehaviour
         IsWalkable = walkable;
         IsOccupied = occupied;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Unit") || other.CompareTag("Obstacle"))
+        {
+            IsWalkable = false;
+            IsOccupied = false;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        IsWalkable = true;
+        IsOccupied = true;
+    }
 }
