@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class GameGrid : MonoBehaviour
@@ -12,7 +13,7 @@ public class GameGrid : MonoBehaviour
 
     private GameObject _gridParent;
 
-    private GameObject[,] _gameGrid;
+    public GameObject[,] GeneratedGrid;
 
     private void Start()
     {
@@ -58,7 +59,7 @@ public class GameGrid : MonoBehaviour
         return new Vector3(x, 0f, y) * _gridSpacing;
     }
 
-    private void GetXZ(Vector3 worldPosition, out int x, out int z)
+    public void GetXZ(Vector3 worldPosition, out int x, out int z)
     {
         x = Mathf.FloorToInt(worldPosition.x / _gridSpacing);
         z = Mathf.FloorToInt(worldPosition.z / _gridSpacing);
@@ -75,7 +76,7 @@ public class GameGrid : MonoBehaviour
         _width = width;
         _gridSpacing = spacing;
 
-        _gameGrid = new GameObject[_height, _width];
+        GeneratedGrid = new GameObject[_height, _width];
 
         CreateGrid();
     }
@@ -85,17 +86,19 @@ public class GameGrid : MonoBehaviour
         if (_gridCellPrefab == null)
             Debug.LogError($"No prefab assigned");
 
-        _gridParent = Instantiate(new GameObject("GridParent"), Vector3.zero, Quaternion.identity);
+        //_gridParent = Instantiate(new GameObject("GridParent"), Vector3.zero, Quaternion.identity);
 
         for (int y = 0; y < _height; y++)
         {
             for (int x = 0; x < _width; x++)
             {
-                _gameGrid[x, y] = Instantiate(_gridCellPrefab, new Vector3(x, 0f, y) * _gridSpacing, Quaternion.identity, _gridParent.transform);
-                _gameGrid[x, y].name = $"Cell {x},{y}";
-                _gameGrid[x, y].GetComponent<GridCell>().SetParameters(x, y, walkable: true, occupied: false);
+                GeneratedGrid[x, y] = Instantiate(_gridCellPrefab, new Vector3(x, 0f, y) * _gridSpacing, Quaternion.identity, transform);
+                GeneratedGrid[x, y].name = $"Cell {x},{y}";
+                GeneratedGrid[x, y].GetComponent<GridCell>().SetParameters(x, y, walkable: false, occupied: false);
             }
         }
+
+        GeneratedGrid[0, 0].GetComponent<NavMeshSurface>().BuildNavMesh();
 
         //InitiateCells();
     }
@@ -121,14 +124,14 @@ public class GameGrid : MonoBehaviour
                 if ((i == yPos && j == xPos))
                     continue;
 
-                if (WithinGrid(i, j))
+                if (IsWithinGrid(i, j))
                 {
                     GridCell currentCell;
-                    currentCell = _gameGrid[i, j].GetComponent<GridCell>();
+                    currentCell = GeneratedGrid[i, j].GetComponent<GridCell>();
 
                     if (currentCell.IsWalkable)
                     {
-                        _gameGrid[xPos, yPos].GetComponent<GridCell>().NeighborCells.Add(currentCell);
+                        GeneratedGrid[xPos, yPos].GetComponent<GridCell>().NeighborCells.Add(currentCell);
                         Debug.Log($"For Cell, [{xPos} , {yPos}], added neighbor {i}, {j}");
                     }
                 }
@@ -136,7 +139,7 @@ public class GameGrid : MonoBehaviour
         }
     }
 
-    private bool WithinGrid(int col, int row)
+    public bool IsWithinGrid(int col, int row)
     {
         if (col < 0 || row < 0)
             return false;
@@ -145,10 +148,22 @@ public class GameGrid : MonoBehaviour
         return true;
     }
 
+    public void DisableWalkable()
+    {
+        for (int y = 0; y < _height; y++)
+        {
+            for (int x = 0; x < _width; x++)
+            {
+                GeneratedGrid[x, y].GetComponent<GridCell>().SetMoveTileVisibility(false);
+                GeneratedGrid[x, y].GetComponent<GridCell>().IsWalkable = false;
+            }
+        }
+    }
+
     [ContextMenu("Regenerate")]
     public void RegenrateGrid()
     {
-        foreach (Transform child in _gridParent.transform)
+        foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
         }

@@ -223,7 +223,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   IsMoving: 0
-  TileOffset: {x: 0, y: 0, z: 0}
+  TileOffset: {x: 0, y: 0.5, z: 0.5}
+  _actionPoints: 6
 --- !u!136 &5015843034203421868
 CapsuleCollider:
   m_ObjectHideFlags: 0

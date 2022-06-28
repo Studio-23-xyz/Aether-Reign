@@ -9,8 +9,11 @@ public class GridCell : MonoBehaviour
     public bool IsOccupied;
     public List<GridCell> NeighborCells = new List<GridCell>();
 
+    public GameObject MoveVisibility;
+
     private void Start()
     {
+        MoveVisibility.SetActive(false);
         var originalScale = transform.localScale;
         transform.localScale = Vector3.zero;
 
@@ -19,6 +22,8 @@ public class GridCell : MonoBehaviour
             transform.DOScale(originalScale, 0.2f);
         });
     }
+
+    public void SetMoveTileVisibility(bool state) => MoveVisibility.SetActive(state);
 
     public void SetParameters(int x, int y, bool walkable, bool occupied)
     {

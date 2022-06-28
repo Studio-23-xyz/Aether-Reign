@@ -2,18 +2,56 @@ using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Unit : MonoBehaviour
 {
     private Animator _animator;
+    private NavMeshAgent _agent;
     public LayerMask TileLayer;
     public bool IsMoving;
     public Vector3 TileOffset;
 
+    [SerializeField] private int _actionPoints;
+
+
     private void Start()
     {
         _animator = GetComponent<Animator>();
+        _agent = GetComponent<NavMeshAgent>();
+        GetWalkeableTiles();
     }
+
+    private void GetWalkeableTiles()
+    {
+        GameGrid.Instance.GetXZ(transform.position, out int unitX, out int unitZ);
+        int lowX = unitX - _actionPoints;
+        int lowZ = unitZ - _actionPoints;
+        int highX = unitX + _actionPoints;
+        int highZ = unitZ + _actionPoints;
+
+        for (int x = lowX; x <= highX; x++)
+        {
+            for (int y = lowZ; y <= highZ; y++)
+            {
+                if (!GameGrid.Instance.IsWithinGrid(x,y))
+                    continue;
+                
+                var cell = GameGrid.Instance.GeneratedGrid[x, y].GetComponent<GridCell>();
+
+                if (!cell.IsOccupied)
+                {
+                    NavMeshPath path = new NavMeshPath();
+                    if (_agent.CalculatePath(cell.transform.position + TileOffset, path))
+                    {
+                        cell.SetMoveTileVisibility(true);
+                        cell.IsWalkable = true;
+                    }
+                }
+            }
+        }
+    }
+
 
     private void Update()
     {
@@ -24,9 +62,30 @@ public class Unit : MonoBehaviour
             Vector3 hitPos = GetMouseWorldPosition();
             if (hitPos == Vector3.zero)
                 return;
-
-            TileMovement(GameGrid.Instance.GetPath(transform.position, hitPos));
+            NavMeshPath targetPath = new NavMeshPath();
+            _agent.CalculatePath(hitPos + TileOffset, targetPath);
+            _agent.SetPath(targetPath);
+            WaitForMoveFinish();
+            //TileMovement(GameGrid.Instance.GetPath(transform.position, hitPos));
         }
+    }
+
+    private async void WaitForMoveFinish()
+    {
+        IsMoving = true;
+        _animator.SetBool("IsMoving", true);
+        GameGrid.Instance.DisableWalkable();
+        while (_agent.hasPath)
+        {
+            Debug.Log($"{_agent.hasPath}");
+            
+            await UniTask.Yield();
+            await UniTask.NextFrame();
+        }
+
+        IsMoving = false;
+        _animator.SetBool("IsMoving", false);
+        GetWalkeableTiles();
     }
 
     private async void TileMovement(List<Vector3> path)
