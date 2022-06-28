@@ -36,16 +36,20 @@ public class Unit : MonoBehaviour
             {
                 if (!GameGrid.Instance.IsWithinGrid(x,y))
                     continue;
-                
-                var cell = GameGrid.Instance.GeneratedGrid[x, y].GetComponent<GridCell>();
 
-                if (!cell.IsOccupied)
+                if (GameGrid.Instance.GetPath(new Vector3(unitX, 0f, unitZ), new Vector3(x, 0f, y)).Count <=
+                    _actionPoints)
                 {
-                    NavMeshPath path = new NavMeshPath();
-                    if (_agent.CalculatePath(cell.transform.position + TileOffset, path))
+                    var cell = GameGrid.Instance.GeneratedGrid[x, y].GetComponent<GridCell>();
+
+                    if (!cell.IsOccupied)
                     {
-                        cell.SetMoveTileVisibility(true);
-                        cell.IsWalkable = true;
+                        NavMeshPath path = new NavMeshPath();
+                        if (_agent.CalculatePath(cell.transform.position + TileOffset, path))
+                        {
+                            cell.SetMoveTileVisibility(true);
+                            cell.IsWalkable = true;
+                        }
                     }
                 }
             }
