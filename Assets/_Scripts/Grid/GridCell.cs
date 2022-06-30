@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using DG.Tweening;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class GridCell : MonoBehaviour
@@ -8,8 +7,8 @@ public class GridCell : MonoBehaviour
     [SerializeField] private int _xPos, _yPos;
     public bool IsWalkable;
     public bool IsOccupied;
-    [ShowInInspector] public Color MoveColor;
-    [ShowInInspector] public Color SpellTileColor;
+    public Color MoveColor;
+    public Color SpellTileColor;
 
     public GameObject MoveVisibility;
 

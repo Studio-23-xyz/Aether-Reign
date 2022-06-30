@@ -1,0 +1,323 @@
+{
+"Spells":[
+ {
+  "SpellName": "Fortify",
+  "Mana": 30,
+  "HP": 0,
+  "Damage": 0,
+  "Accuracy": 0,
+  "TurnCooldown": 2,
+  "Heal": 0,
+  "Range": 5,
+  "Effects": "Boosts defense stat of target unit"
+ },
+ {
+  "SpellName": "Teleport",
+  "Mana": 50,
+  "HP": 0,
+  "Damage": 0,
+  "Accuracy": 100,
+  "TurnCooldown": 4,
+  "Heal": 0,
+  "Range": 10,
+  "Effects": "Teleports to Selected Tile"
+ },
+ {
+  "SpellName": "Ember",
+  "Mana": 20,
+  "HP": 0,
+  "Damage": 10,
+  "Accuracy": 80,
+  "TurnCooldown": 1,
+  "Heal": 0,
+  "Range": 4,
+  "Effects": "Hurl fire at targeted unit, can cause burn"
+ },
+ {
+  "SpellName": "Smoke Screen",
+  "Mana": 30,
+  "HP": 0,
+  "Damage": 0,
+  "Accuracy": 100,
+  "TurnCooldown": 3,
+  "Heal": 0,
+  "Range": 3,
+  "Effects": "Creates a smokescreen 3 tiles around unit. Decreases accuracy of incoming attacks. Adds crit rate to attacks."
+ },
+ {
+  "SpellName": "Shackleshot",
+  "Mana": 25,
+  "HP": 0,
+  "Damage": 0,
+  "Accuracy": 90,
+  "TurnCooldown": 2,
+  "Heal": 0,
+  "Range": 6,
+  "Effects": "Stuns the target for 2 turns. If there's an enemy directly behind the target, both units are stunned for 3 turns."
+ },
+ {
+  "SpellName": "Nether Blast",
+  "Mana": 35,
+  "HP": 0,
+  "Damage": 20,
+  "Accuracy": 85,
+  "TurnCooldown": 2,
+  "Heal": 0,
+  "Range": 2,
+  "Effects": "Damages all units in 2 tile radius."
+ },
+ {
+  "SpellName": "Life Drain",
+  "Mana": 30,
+  "HP": 0,
+  "Damage": 10,
+  "Accuracy": 100,
+  "TurnCooldown": 2,
+  "Heal": 10,
+  "Range": 5,
+  "Effects": "Drains Hitpoints from target unit and adds to own HP."
+ },
+ {
+  "SpellName": "Frostbite",
+  "Mana": 20,
+  "HP": 0,
+  "Damage": 10,
+  "Accuracy": 90,
+  "TurnCooldown": 2,
+  "Heal": 0,
+  "Range": 4,
+  "Effects": "Roots the target in place for 1 turn."
+ },
+ {
+  "SpellName": "Sunflare",
+  "Mana": 40,
+  "HP": 0,
+  "Damage": 25,
+  "Accuracy": 100,
+  "TurnCooldown": 4,
+  "Heal": 0,
+  "Range": 6,
+  "Effects": "Beam of sunfire rains down on target cell"
+ },
+ {
+  "SpellName": "Malicious Pit",
+  "Mana": 25,
+  "HP": 0,
+  "Damage": 5,
+  "Accuracy": 100,
+  "TurnCooldown": 2,
+  "Heal": 0,
+  "Range": 2,
+  "Effects": "Creates a poison pit that applies poison damage overtime and reduces action points of affected units."
+ },
+ {
+  "SpellName": "Hook",
+  "Mana": 30,
+  "HP": 0,
+  "Damage": 15,
+  "Accuracy": 90,
+  "TurnCooldown": 2,
+  "Heal": 0,
+  "Range": 5,
+  "Effects": "Pulls targeted unit to adjacent cell. If adjacent cell is blocked or empty, the attack does not occur."
+ },
+ {
+  "SpellName": "Divine Grace",
+  "Mana": 15,
+  "HP": 0,
+  "Damage": 0,
+  "Accuracy": 100,
+  "TurnCooldown": 2,
+  "Heal": 20,
+  "Range": 5,
+  "Effects": "Heals the targeted unit."
+ },
+ {
+  "SpellName": "Ancient Seal",
+  "Mana": 25,
+  "HP": 0,
+  "Damage": 0,
+  "Accuracy": 90,
+  "TurnCooldown": 3,
+  "Heal": 0,
+  "Range": 3,
+  "Effects": "Silences targeted unit for 2 turns."
+ },
+ {
+  "SpellName": "Light of Gorgons",
+  "Mana": 30,
+  "HP": 0,
+  "Damage": 10,
+  "Accuracy": 80,
+  "TurnCooldown": 4,
+  "Heal": 0,
+  "Range": 4,
+  "Effects": "Chances to petrify target unit for 2 turns making them unable to move or use any actions. "
+ },
+ {
+  "SpellName": "Storm Blast",
+  "Mana": 25,
+  "HP": 0,
+  "Damage": 15,
+  "Accuracy": 90,
+  "TurnCooldown": 2,
+  "Heal": 0,
+  "Range": 4,
+  "Effects": "Stuns the target for 2 turns."
+ },
+ {
+  "SpellName": "Chaos Bolt",
+  "Mana": 30,
+  "HP": 0,
+  "Damage": 20,
+  "Accuracy": 85,
+  "TurnCooldown": 4,
+  "Heal": 0,
+  "Range": 5,
+  "Effects": "Stuns target unit for (2-4) turns. "
+ },
+ {
+  "SpellName": "Ghost Shroud",
+  "Mana": 25,
+  "HP": 0,
+  "Damage": 0,
+  "Accuracy": 100,
+  "TurnCooldown": 4,
+  "Heal": 0,
+  "Range": 0,
+  "Effects": "Makes caster invisible to enemy attacks for 2 turns. The effect is removed if the target used any action that damages enemy units"
+ },
+ {
+  "SpellName": "Bolt",
+  "Mana": 20,
+  "HP": 0,
+  "Damage": 10,
+  "Accuracy": 90,
+  "TurnCooldown": 2,
+  "Heal": 0,
+  "Range": 5,
+  "Effects": "Casts lightining bolt on targeted cell. Has chances to shock target."
+ },
+ {
+  "SpellName": "Boulder Smash",
+  "Mana": 25,
+  "HP": 0,
+  "Damage": 15,
+  "Accuracy": 80,
+  "TurnCooldown": 2,
+  "Heal": 0,
+  "Range": 4,
+  "Effects": "Hurls a boulder ar target cell. Can stun the target. "
+ },
+ {
+  "SpellName": "Berserk",
+  "Mana": 0,
+  "HP": 10,
+  "Damage": 0,
+  "Accuracy": 100,
+  "TurnCooldown": 4,
+  "Heal": 0,
+  "Range": 0,
+  "Effects": "Sacrifice HP to gain attack boost for 2 turns."
+ },
+ {
+  "SpellName": "Aether Protection",
+  "Mana": 70,
+  "HP": 0,
+  "Damage": 0,
+  "Accuracy": 95,
+  "TurnCooldown": -1,
+  "Heal": 0,
+  "Range": 0,
+  "Effects": "Cast on ally or self to form a protective barried that will prevent a killing blow on the unit. Can only be used once. Lasts 4 turns."
+ },
+ {
+  "SpellName": "Divine Retribution",
+  "Mana": 50,
+  "HP": 0,
+  "Damage": 30,
+  "Accuracy": 85,
+  "TurnCooldown": 5,
+  "Heal": 0,
+  "Range": 5,
+  "Effects": "Calls upon Aether's blessing to smite the target with menacing might!"
+ },
+ {
+  "SpellName": "Mana Burn",
+  "Mana": 10,
+  "HP": 0,
+  "Damage": 20,
+  "Accuracy": 95,
+  "TurnCooldown": 3,
+  "Heal": 0,
+  "Range": 4,
+  "Effects": "Targeted enemy unit loses 20 points of mana."
+ },
+ {
+  "SpellName": "Blink Strike",
+  "Mana": 20,
+  "HP": 0,
+  "Damage": 15,
+  "Accuracy": 95,
+  "TurnCooldown": 2,
+  "Heal": 0,
+  "Range": 6,
+  "Effects": "Blinks behind target unit and attacks once. Has increased crit rate. If there is no space available heind the target, it will iinstead teleport on adjacent tile."
+ },
+ {
+  "SpellName": "Lunar Beam",
+  "Mana": 35,
+  "HP": 0,
+  "Damage": 20,
+  "Accuracy": 100,
+  "TurnCooldown": 3,
+  "Heal": 0,
+  "Range": 5,
+  "Effects": "Calls upon the power of The Moon Goddess and damaes the targeted unit. "
+ },
+ {
+  "SpellName": "Alacrity",
+  "Mana": 25,
+  "HP": 0,
+  "Damage": 0,
+  "Accuracy": 100,
+  "TurnCooldown": 4,
+  "Heal": 0,
+  "Range": 4,
+  "Effects": "Cast on ally to increase their action points by 5 for next 2 turns."
+ },
+ {
+  "SpellName": "Mana Blast",
+  "Mana": 60,
+  "HP": 0,
+  "Damage": 25,
+  "Accuracy": 90,
+  "TurnCooldown": 6,
+  "Heal": 0,
+  "Range": 5,
+  "Effects": "Damages target unit based on points of mana missing. Base damage is applied regardless of current mana pool."
+ },
+ {
+  "SpellName": "Aether Slash",
+  "Mana": 65,
+  "HP": 0,
+  "Damage": 35,
+  "Accuracy": 95,
+  "TurnCooldown": 6,
+  "Heal": 0,
+  "Range": 4,
+  "Effects": "Attacks all enemy units 3 tiles adjacent to the target area."
+ },
+ {
+  "SpellName": "Aether Curse",
+  "Mana": 35,
+  "HP": 0,
+  "Damage": 0,
+  "Accuracy": 90,
+  "TurnCooldown": 4,
+  "Heal": 0,
+  "Range": 4,
+  "Effects": "Curses target unit to take increased damage for the next 2 turns."
+ }
+]
+}

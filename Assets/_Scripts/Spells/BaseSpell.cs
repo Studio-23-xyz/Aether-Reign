@@ -1,21 +1,22 @@
-using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class BaseSpell : SerializedMonoBehaviour, ISpell
+public class BaseSpell : MonoBehaviour, ISpell
 {
     #region Fields
 
     public string SpellName;
     [TextArea] public string SpellDescription;
 
-    public int ManaCost;
+    [SerializeField] private int _manaCost;
     public int HealthCost;
     public int Damage;
     public int Heal;
     [SerializeField] private int _spellRange;
     [SerializeField] private int _spellCastPointAOE;
-    public int CooldownTurns;
+    [SerializeField] private int _cooldownTurns;
+    [SerializeField] private Sprite _spellIconSprite;
     public int Accuracy;
+    public float SpellScale = 0.1f;
 
     public GameObject SpellFX;
 
@@ -25,6 +26,9 @@ public class BaseSpell : SerializedMonoBehaviour, ISpell
 
     public int SpellRange => _spellRange;
     public int SpellCastPointAOE => _spellCastPointAOE;
+    public int ManaCost => _manaCost;
+    public int CooldownTurns => _cooldownTurns;
+    public Sprite SpellIcon => _spellIconSprite;
 
     #endregion
 
@@ -33,7 +37,7 @@ public class BaseSpell : SerializedMonoBehaviour, ISpell
         var dir = targetPosition - castPosition;
         var rot = Quaternion.LookRotation(dir);
         var fx = Instantiate(SpellFX, targetPosition, Quaternion.identity);
-        fx.transform.localScale = Vector3.one * 0.3f;
+        fx.transform.localScale = Vector3.one * SpellScale;
         Destroy(fx, 2f);
     }
 }

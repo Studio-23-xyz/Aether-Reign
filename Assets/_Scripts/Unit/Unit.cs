@@ -1,29 +1,83 @@
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Unit : SerializedMonoBehaviour
+public class Unit : MonoBehaviour
 {
     private Animator _animator;
     private NavMeshAgent _agent;
     public LayerMask TileLayer;
     public bool IsMoving;
-    public bool IsAimingAbility;
-    public bool IsCastingAbility;
+    public bool IsAimingSpell;
+    public bool IsCastingSpell;
     public Vector3 TileOffset;
+
+    public int SpellsToGet;
+
+
+    public GameObject SpellBar;
+    public GameObject UISpellItemPrefab;
 
     [SerializeField] private int _actionPoints;
     public List<ISpell> SpellGrimoire = new List<ISpell>();
+    public List<Spell> UsableSpells = new List<Spell>();
 
 
     private void Start()
     {
+        Initialize();
+    }
+
+    private void Initialize()
+    {
         _animator = GetComponent<Animator>();
         _agent = GetComponent<NavMeshAgent>();
         GetActableTiles(_actionPoints, isSpell: false);
+        SpellGrimoire = GetComponents<ISpell>().ToList();
+        //UsableSpells = Grimoire.Instance.GetSpells(SpellsToGet);
+        AddSpellsToUI();
+    }
+
+    private void AddSpellsToUI()
+    {
+        foreach (var spell in SpellGrimoire)
+        {
+            var spellItem = Instantiate(UISpellItemPrefab, SpellBar.transform);
+            spellItem.GetComponent<UISpellItem>().SetupSpellUIItem(spell.SpellIcon, spell.CooldownTurns);
+            spellItem.GetComponent<UISpellItem>().SetSpellAction(() =>
+            {
+                UseSpell(spell);
+            });
+        }
+    }
+
+    public void DebugFuction()
+    {
+        Debug.Log($"Hello world");
+    }
+
+    private void UseSpell(ISpell spell)
+    {
+        if (AttemptToCastSpell())
+        {
+            SetupSpell(spell);
+        }
+        else
+        {
+            IsAimingSpell = false;
+            GameGrid.Instance.DisableWalkable();
+            GetActableTiles(_actionPoints, isSpell: false);
+        }
+    }
+
+    void SetupSpell(ISpell _spell)
+    {
+        IsAimingSpell = true;
+        GameGrid.Instance.DisableWalkable();
+        GetActableTiles(SpellGrimoire[0].SpellRange, isSpell: true);
     }
 
     private void GetActableTiles(int tileRange, bool isSpell)
@@ -64,23 +118,12 @@ public class Unit : SerializedMonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (IsAimingAbility)
-            {
-                IsAimingAbility = false;
-                GameGrid.Instance.DisableWalkable();
-                GetActableTiles(_actionPoints, isSpell: false);
-                return;
-            }
-        }
-
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 hitPos = GetMouseWorldPosition();
             if (hitPos == Vector3.zero)
                 return;
-            if (!IsMoving || !IsCastingAbility || !IsAimingAbility)
+            if (!IsMoving || !IsCastingSpell || !IsAimingSpell)
             {
                 NavMeshPath targetPath = new NavMeshPath();
                 _agent.CalculatePath(hitPos + TileOffset, targetPath);
@@ -89,31 +132,20 @@ public class Unit : SerializedMonoBehaviour
                 //TileMovement(GameGrid.Instance.GetPath(transform.position, hitPos));
             }
 
-            if (IsAimingAbility)
+            if (IsAimingSpell)
             {
-                IsAimingAbility = false;
                 SpellGrimoire[0].CastSpell(transform.position, hitPos + TileOffset);
+                GameGrid.Instance.DisableWalkable();
                 GetActableTiles(_actionPoints, false);
+                IsAimingSpell = false;
                 return;
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (IsMoving || IsCastingAbility || IsAimingAbility) return;
-
-            IsAimingAbility = true;
-            GameGrid.Instance.DisableWalkable();
-            if (AttemptToCastSpell())
-            {
-                GetActableTiles(SpellGrimoire[0].SpellRange, isSpell: true);
             }
         }
     }
 
     private bool AttemptToCastSpell()
     {
-        if (IsMoving || IsCastingAbility)
+        if (IsMoving || IsCastingSpell || IsAimingSpell)
             return false;
         Debug.Log($"Attempt successful");
         return true;
