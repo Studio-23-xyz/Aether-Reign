@@ -1,28 +1,32 @@
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Unit : MonoBehaviour
+public class Unit : SerializedMonoBehaviour
 {
     private Animator _animator;
     private NavMeshAgent _agent;
     public LayerMask TileLayer;
     public bool IsMoving;
+    public bool IsAimingAbility;
+    public bool IsCastingAbility;
     public Vector3 TileOffset;
 
     [SerializeField] private int _actionPoints;
+    public List<ISpell> SpellGrimoire = new List<ISpell>();
 
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
         _agent = GetComponent<NavMeshAgent>();
-        GetWalkeableTiles();
+        GetActableTiles(_actionPoints, isSpell: false);
     }
 
-    private void GetWalkeableTiles()
+    private void GetActableTiles(int tileRange, bool isSpell)
     {
         GameGrid.Instance.GetXZ(transform.position, out int unitX, out int unitZ);
         int lowX = unitX - _actionPoints;
@@ -47,7 +51,8 @@ public class Unit : MonoBehaviour
                         NavMeshPath path = new NavMeshPath();
                         if (_agent.CalculatePath(cell.transform.position + TileOffset, path))
                         {
-                            cell.SetMoveTileVisibility(true);
+                            cell.SetTileVisibility(true);
+                            cell.SetTileVisualColor(isSpell);
                             cell.IsWalkable = true;
                         }
                     }
@@ -59,19 +64,59 @@ public class Unit : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (IsAimingAbility)
+            {
+                IsAimingAbility = false;
+                GameGrid.Instance.DisableWalkable();
+                GetActableTiles(_actionPoints, isSpell: false);
+                return;
+            }
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
-            if (IsMoving) return;
-
             Vector3 hitPos = GetMouseWorldPosition();
             if (hitPos == Vector3.zero)
                 return;
-            NavMeshPath targetPath = new NavMeshPath();
-            _agent.CalculatePath(hitPos + TileOffset, targetPath);
-            _agent.SetPath(targetPath);
-            WaitForMoveFinish();
-            //TileMovement(GameGrid.Instance.GetPath(transform.position, hitPos));
+            if (!IsMoving || !IsCastingAbility || !IsAimingAbility)
+            {
+                NavMeshPath targetPath = new NavMeshPath();
+                _agent.CalculatePath(hitPos + TileOffset, targetPath);
+                _agent.SetPath(targetPath);
+                WaitForMoveFinish();
+                //TileMovement(GameGrid.Instance.GetPath(transform.position, hitPos));
+            }
+
+            if (IsAimingAbility)
+            {
+                IsAimingAbility = false;
+                SpellGrimoire[0].CastSpell(transform.position, hitPos + TileOffset);
+                GetActableTiles(_actionPoints, false);
+                return;
+            }
         }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (IsMoving || IsCastingAbility || IsAimingAbility) return;
+
+            IsAimingAbility = true;
+            GameGrid.Instance.DisableWalkable();
+            if (AttemptToCastSpell())
+            {
+                GetActableTiles(SpellGrimoire[0].SpellRange, isSpell: true);
+            }
+        }
+    }
+
+    private bool AttemptToCastSpell()
+    {
+        if (IsMoving || IsCastingAbility)
+            return false;
+        Debug.Log($"Attempt successful");
+        return true;
     }
 
     private async void WaitForMoveFinish()
@@ -81,15 +126,13 @@ public class Unit : MonoBehaviour
         GameGrid.Instance.DisableWalkable();
         while (_agent.hasPath)
         {
-            Debug.Log($"{_agent.hasPath}");
-            
             await UniTask.Yield();
             await UniTask.NextFrame();
         }
 
         IsMoving = false;
         _animator.SetBool("IsMoving", false);
-        GetWalkeableTiles();
+        GetActableTiles(_actionPoints, isSpell: false);
     }
 
     private async void TileMovement(List<Vector3> path)

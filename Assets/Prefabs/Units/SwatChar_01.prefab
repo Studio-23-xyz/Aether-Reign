@@ -163,6 +163,7 @@ GameObject:
   - component: {fileID: 1061090884697231548}
   - component: {fileID: 876988823804574869}
   - component: {fileID: 5015843034203421868}
+  - component: {fileID: 4533083708052651874}
   m_Layer: 8
   m_Name: SwatChar_01
   m_TagString: Unit
@@ -219,10 +220,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b59411a8563fcb409d2a2ed1584e1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 4533083708052651874}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: SpellGrimoire
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[ISpell, Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   TileLayer:
     serializedVersion: 2
     m_Bits: 128
   IsMoving: 0
+  IsAimingAbility: 0
+  IsCastingAbility: 0
   TileOffset: {x: 0, y: 0.5, z: 0.5}
   _actionPoints: 6
 --- !u!136 &5015843034203421868
@@ -239,6 +267,37 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &4533083708052651874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 428422666500229633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 981f91b6356e1b644bd516103e5e44d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  SpellName: Ember
+  SpellDescription: Hurl fire at targeted unit, can cause burn
+  ManaCost: 20
+  HealthCost: 0
+  Damage: 10
+  Heal: 0
+  _spellRange: 4
+  _spellCastPointAOE: 1
+  CooldownTurns: 1
+  Accuracy: 85
 --- !u!1 &447678702400645466
 GameObject:
   m_ObjectHideFlags: 0

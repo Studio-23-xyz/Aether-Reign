@@ -103,41 +103,41 @@ public class GameGrid : MonoBehaviour
         //InitiateCells();
     }
 
-    private void InitiateCells()
-    {
-        for (int y = 0; y < _height; y++)
-        {
-            for (int x = 0; x < _width; x++)
-            {
-                AssignWalkableNeighbors(x, y);
-            }
-        }
-    }
+    //private void InitiateCells()
+    //{
+    //    for (int y = 0; y < _height; y++)
+    //    {
+    //        for (int x = 0; x < _width; x++)
+    //        {
+    //            AssignWalkableNeighbors(x, y);
+    //        }
+    //    }
+    //}
 
-    private void AssignWalkableNeighbors(int xPos, int yPos)
-    {
-        for (int i = yPos - 1; i <= yPos + 1; i++)
-        {
-            for (int j = xPos - 1; j <= xPos + 1; j++)
-            {
-                //Debug.Log($"For Cell, [{xPos} , {yPos}]. Currently iterating XPos: {j}, YPos: {i}");
-                if ((i == yPos && j == xPos))
-                    continue;
+    //private void AssignWalkableNeighbors(int xPos, int yPos)
+    //{
+    //    for (int i = yPos - 1; i <= yPos + 1; i++)
+    //    {
+    //        for (int j = xPos - 1; j <= xPos + 1; j++)
+    //        {
+    //            //Debug.Log($"For Cell, [{xPos} , {yPos}]. Currently iterating XPos: {j}, YPos: {i}");
+    //            if ((i == yPos && j == xPos))
+    //                continue;
 
-                if (IsWithinGrid(i, j))
-                {
-                    GridCell currentCell;
-                    currentCell = GeneratedGrid[i, j].GetComponent<GridCell>();
+    //            if (IsWithinGrid(i, j))
+    //            {
+    //                GridCell currentCell;
+    //                currentCell = GeneratedGrid[i, j].GetComponent<GridCell>();
 
-                    if (currentCell.IsWalkable)
-                    {
-                        GeneratedGrid[xPos, yPos].GetComponent<GridCell>().NeighborCells.Add(currentCell);
-                        Debug.Log($"For Cell, [{xPos} , {yPos}], added neighbor {i}, {j}");
-                    }
-                }
-            }
-        }
-    }
+    //                if (currentCell.IsWalkable)
+    //                {
+    //                    GeneratedGrid[xPos, yPos].GetComponent<GridCell>().NeighborCells.Add(currentCell);
+    //                    Debug.Log($"For Cell, [{xPos} , {yPos}], added neighbor {i}, {j}");
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 
     public bool IsWithinGrid(int col, int row)
     {
@@ -154,7 +154,7 @@ public class GameGrid : MonoBehaviour
         {
             for (int x = 0; x < _width; x++)
             {
-                GeneratedGrid[x, y].GetComponent<GridCell>().SetMoveTileVisibility(false);
+                GeneratedGrid[x, y].GetComponent<GridCell>().SetTileVisibility(false);
                 GeneratedGrid[x, y].GetComponent<GridCell>().IsWalkable = false;
             }
         }

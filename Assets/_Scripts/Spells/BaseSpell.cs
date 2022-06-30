@@ -1,34 +1,39 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class BaseSpell : MonoBehaviour, ISpell
+public class BaseSpell : SerializedMonoBehaviour, ISpell
 {
-    //public string SpellName;
-    //[TextArea] public string SpellDescription;
+    #region Fields
+
+    public string SpellName;
+    [TextArea] public string SpellDescription;
 
     public int ManaCost;
     public int HealthCost;
     public int Damage;
     public int Heal;
-    public int SpellRange;
-    public int SpellCastPointAOE;
+    [SerializeField] private int _spellRange;
+    [SerializeField] private int _spellCastPointAOE;
     public int CooldownTurns;
     public int Accuracy;
 
-    public string SpellName { get; set; }
-    public string Description { get; set; }
+    public GameObject SpellFX;
 
-    public void AttemptToCastSpell()
-    {
-        throw new System.NotImplementedException();
-    }
+    #endregion
 
-    public void AimSpell()
-    {
-        throw new System.NotImplementedException();
-    }
+    #region Properties
 
-    public void CastSpell()
+    public int SpellRange => _spellRange;
+    public int SpellCastPointAOE => _spellCastPointAOE;
+
+    #endregion
+
+    public void CastSpell(Vector3 castPosition, Vector3 targetPosition)
     {
-        throw new System.NotImplementedException();
+        var dir = targetPosition - castPosition;
+        var rot = Quaternion.LookRotation(dir);
+        var fx = Instantiate(SpellFX, targetPosition, Quaternion.identity);
+        fx.transform.localScale = Vector3.one * 0.3f;
+        Destroy(fx, 2f);
     }
 }

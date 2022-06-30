@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class GridCell : MonoBehaviour
@@ -7,7 +8,8 @@ public class GridCell : MonoBehaviour
     [SerializeField] private int _xPos, _yPos;
     public bool IsWalkable;
     public bool IsOccupied;
-    public List<GridCell> NeighborCells = new List<GridCell>();
+    [ShowInInspector] public Color MoveColor;
+    [ShowInInspector] public Color SpellTileColor;
 
     public GameObject MoveVisibility;
 
@@ -23,7 +25,16 @@ public class GridCell : MonoBehaviour
         });
     }
 
-    public void SetMoveTileVisibility(bool state) => MoveVisibility.SetActive(state);
+    public void SetTileVisibility(bool state)
+    {
+        MoveVisibility.SetActive(state);
+    }
+
+    public void SetTileVisualColor(bool isSpell)
+    {
+        var tileColor = isSpell ? SpellTileColor : MoveColor;
+        MoveVisibility.GetComponent<SpriteRenderer>().color = tileColor;
+    }
 
     public void SetParameters(int x, int y, bool walkable, bool occupied)
     {
