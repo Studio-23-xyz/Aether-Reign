@@ -7307,7 +7307,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1182955562}
   - component: {fileID: 1182955561}
-  - component: {fileID: 1182955563}
   m_Layer: 0
   m_Name: Darkhold
   m_TagString: Untagged
@@ -7345,19 +7344,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1182955563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1182955560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd551e41e9a518e4aaaeaff419cc5a36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Mezika: {fileID: 11400000, guid: c3cec8bcda413864488649f028eb26c2, type: 2}
 --- !u!4 &1194148009 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3867546701829490568, guid: b35fdbd67ab8e004aad548304ab4c59d,
@@ -15129,19 +15115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 981f91b6356e1b644bd516103e5e44d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpellName: Ember
-  SpellDescription: Hurl fire at targeted unit, can cause burn
-  _manaCost: 10
-  HealthCost: 0
-  Damage: 10
-  Heal: 0
-  _spellRange: 4
-  _spellCastPointAOE: 1
-  _cooldownTurns: 0
-  _spellIconSprite: {fileID: 21300000, guid: dd3885098198d104888439be4c590aba, type: 3}
-  Accuracy: 85
-  SpellScale: 0.06
-  SpellFX: {fileID: 270978813720692685, guid: f8fe3107e82ab9e498e62f95cb153dd6, type: 3}
+  Mezika: {fileID: 0}
 --- !u!222 &4536250091411900361
 CanvasRenderer:
   m_ObjectHideFlags: 0

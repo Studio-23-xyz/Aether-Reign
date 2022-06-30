@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public class Ember : BaseSpell
+public class Ember : SpellHolder
 {
-    public void CastSpell()
+    public override void CastSpell(Vector3 targetPoint)
     {
-        Debug.Log($"Hello Ember");
+        {
+            var spellFx = Instantiate(Mezika.SpellFX, targetPoint, Quaternion.identity);
+            Destroy(spellFx, 3f);
+        }
     }
 }

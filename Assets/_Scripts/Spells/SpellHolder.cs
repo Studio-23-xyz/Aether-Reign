@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellHolder : MonoBehaviour
+public abstract class SpellHolder : MonoBehaviour
 {
     public SpellBaseSO Mezika;
+
+    public abstract void CastSpell(Vector3 targetPoint);
 
     void Start()
     {
