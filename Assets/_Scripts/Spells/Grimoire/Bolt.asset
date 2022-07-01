@@ -10,19 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8845e7e186ed78442b7e8b6a37314320, type: 3}
-  m_Name: Ember
+  m_Name: Bolt
   m_EditorClassIdentifier: 
-  SpellName: Ember
-  SpellDescription: Hurl fire at targeted unit, can cause burn
-  _manaCost: 20
+  SpellName: Bolt
+  SpellDescription: Divine retribution from Zeus himself
+  _manaCost: 30
   HealthCost: 0
-  Damage: 0
+  Damage: 20
   Heal: 0
-  SpellRange: 0
+  SpellRange: 5
   _spellCastPointAOE: 0
-  CooldownTurns: 0
+  CooldownTurns: 4
   Accuracy: 0
-  SpellScale: 0.02
+  SpellScale: 0.5
   SpellType: 0
-  SpellIconSprite: {fileID: 21300000, guid: dd3885098198d104888439be4c590aba, type: 3}
-  SpellFX: {fileID: 693454231405589813, guid: e26f9e0b6f93d1842b15824e6ff2f21c, type: 3}
+  SpellIconSprite: {fileID: 21300000, guid: 2456dd2824f5ec540830760922f5bac6, type: 3}
+  SpellFX: {fileID: 8779592066186592422, guid: dc23428272f0ee3489c468f483fad239, type: 3}
+  OnSpellCast:
+    m_PersistentCalls:
+      m_Calls: []

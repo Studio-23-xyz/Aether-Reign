@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8845e7e186ed78442b7e8b6a37314320, type: 3}
-  m_Name: Ember
+  m_Name: NewSpell
   m_EditorClassIdentifier: 
-  SpellName: Ember
-  SpellDescription: Hurl fire at targeted unit, can cause burn
-  _manaCost: 20
+  SpellName: New Spell
+  SpellDescription: Dummy spell
+  _manaCost: 10
   HealthCost: 0
-  Damage: 0
+  Damage: 5
   Heal: 0
   SpellRange: 0
   _spellCastPointAOE: 0
   CooldownTurns: 0
-  Accuracy: 0
-  SpellScale: 0.02
-  SpellType: 0
-  SpellIconSprite: {fileID: 21300000, guid: dd3885098198d104888439be4c590aba, type: 3}
-  SpellFX: {fileID: 693454231405589813, guid: e26f9e0b6f93d1842b15824e6ff2f21c, type: 3}
+  Accuracy: 100
+  SpellScale: 0.06
+  SpellType: 1
+  SpellIconSprite: {fileID: 21300000, guid: 4029a9cfeb86f134c9c5af05993eaac8, type: 3}
+  SpellFX: {fileID: 2467265553658134814, guid: ffc5e79f5f38331429a7f45b63fff4f4, type: 3}

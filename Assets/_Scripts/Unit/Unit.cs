@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class Unit : MonoBehaviour
 {
@@ -22,9 +23,13 @@ public class Unit : MonoBehaviour
     public GameObject UISpellItemPrefab;
 
     [SerializeField] private int _actionPoints;
-    public List<ISpell> SpellGrimoire = new List<ISpell>();
     public List<Spell> UsableSpells = new List<Spell>();
 
+    public List<SpellHolder> AvailableSpells = new List<SpellHolder>();
+    [SerializeField] private SpellHolder _currentlySelectedSpell;
+
+    public UnityEvent OnTurnCompleted;
+    public UnityEvent<SpellHolder> OnSpellCasted;
 
     private void Start()
     {
@@ -36,21 +41,32 @@ public class Unit : MonoBehaviour
         _animator = GetComponent<Animator>();
         _agent = GetComponent<NavMeshAgent>();
         GetActableTiles(_actionPoints, isSpell: false);
-        SpellGrimoire = GetComponents<ISpell>().ToList();
-        //UsableSpells = Grimoire.Instance.GetSpells(SpellsToGet);
+        
+        AvailableSpells = Grimoire.Instance.GetSpells(SpellsToGet);
         AddSpellsToUI();
     }
 
     private void AddSpellsToUI()
     {
-        foreach (var spell in SpellGrimoire)
+        //foreach (var spell in SpellGrimoire)
+        //{
+        //    var spellItem = Instantiate(UISpellItemPrefab, SpellBar.transform);
+        //    spellItem.GetComponent<UISpellItem>().SetupSpellUIItem(spell.SpellIcon, spell.CooldownTurns);
+        //    spellItem.GetComponent<UISpellItem>().SetSpellAction(() =>
+        //    {
+        //        UseSpell(spell);
+        //    });
+        //}
+
+        foreach (var availableSpell in AvailableSpells)
         {
-            var spellItem = Instantiate(UISpellItemPrefab, SpellBar.transform);
-            spellItem.GetComponent<UISpellItem>().SetupSpellUIItem(spell.SpellIcon, spell.CooldownTurns);
-            spellItem.GetComponent<UISpellItem>().SetSpellAction(() =>
+            var spellUI = Instantiate(UISpellItemPrefab, SpellBar.transform);
+            spellUI.GetComponent<UISpellItem>().SetupSpellUIItem(availableSpell.Mezika.SpellIconSprite, availableSpell.Mezika.CooldownTurns);
+            spellUI.GetComponent<UISpellItem>().SetSpellAction(() =>
             {
-                UseSpell(spell);
+                UseSpell(availableSpell);
             });
+            Grimoire.Instance.UISpellItems.Add(spellUI.GetComponent<UISpellItem>());
         }
     }
 
@@ -59,7 +75,7 @@ public class Unit : MonoBehaviour
         Debug.Log($"Hello world");
     }
 
-    private void UseSpell(ISpell spell)
+    private void UseSpell(SpellHolder spell)
     {
         if (AttemptToCastSpell())
         {
@@ -73,11 +89,12 @@ public class Unit : MonoBehaviour
         }
     }
 
-    void SetupSpell(ISpell _spell)
+    private void SetupSpell(SpellHolder spell)
     {
+        _currentlySelectedSpell = spell;
         IsAimingSpell = true;
         GameGrid.Instance.DisableWalkable();
-        GetActableTiles(SpellGrimoire[0].SpellRange, isSpell: true);
+        GetActableTiles(_currentlySelectedSpell.Mezika.SpellRange, isSpell: true);
     }
 
     private void GetActableTiles(int tileRange, bool isSpell)
@@ -123,7 +140,7 @@ public class Unit : MonoBehaviour
             Vector3 hitPos = GetMouseWorldPosition();
             if (hitPos == Vector3.zero)
                 return;
-            if (!IsMoving || !IsCastingSpell || !IsAimingSpell)
+            if (!IsMoving && !IsCastingSpell && !IsAimingSpell)
             {
                 NavMeshPath targetPath = new NavMeshPath();
                 _agent.CalculatePath(hitPos + TileOffset, targetPath);
@@ -134,12 +151,17 @@ public class Unit : MonoBehaviour
 
             if (IsAimingSpell)
             {
-                SpellGrimoire[0].CastSpell(transform.position, hitPos + TileOffset);
+                TurnTowardsSpellCast(hitPos+TileOffset);
+                _currentlySelectedSpell.Mezika.CastSpell(transform.position, (hitPos), _currentlySelectedSpell.Mezika.SpellType);
+                //SpellGrimoire[0].CastSpell(transform.position, hitPos + TileOffset);
                 GameGrid.Instance.DisableWalkable();
                 GetActableTiles(_actionPoints, false);
                 IsAimingSpell = false;
-                return;
+                OnSpellCasted?.Invoke(_currentlySelectedSpell);
+                _currentlySelectedSpell = null;
+                
             }
+            OnTurnCompleted?.Invoke();
         }
     }
 
@@ -149,6 +171,17 @@ public class Unit : MonoBehaviour
             return false;
         Debug.Log($"Attempt successful");
         return true;
+    }
+
+    private async void TurnTowardsSpellCast(Vector3 targetPoint)
+    {
+        var lineToCastPoint = targetPoint - transform.position;
+        while (transform.rotation != Quaternion.LookRotation(lineToCastPoint))
+        {
+            Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lineToCastPoint), 0.1f);
+            await UniTask.Yield();
+            await UniTask.NextFrame();
+        }
     }
 
     private async void WaitForMoveFinish()

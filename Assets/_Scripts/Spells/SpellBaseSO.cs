@@ -13,21 +13,54 @@ public class SpellBaseSO : ScriptableObject
     public int HealthCost;
     public int Damage;
     public int Heal;
-    [SerializeField] private int _spellRange;
+    public int SpellRange;
     [SerializeField] private int _spellCastPointAOE;
-    [SerializeField] private int _cooldownTurns;
+    public int CooldownTurns;
     public int Accuracy;
     public float SpellScale = 0.1f;
+    public SpellCastType SpellType;
 
-    [SerializeField] private Sprite _spellIconSprite;
+    public Sprite SpellIconSprite;
     public GameObject SpellFX;
 
-    public UnityEvent OnCast;
+    private GameObject _spellFXInstance;
+
+    public UnityEvent OnSpellCast;
 
     #endregion
 
-    public void Hello()
+    public virtual void PointTargetSpell(Vector3 targetPos)
     {
-        OnCast.Invoke();
+        _spellFXInstance = Instantiate(SpellFX, targetPos, Quaternion.identity);
     }
+
+    public virtual void ProjectileSpell(Vector3 castPos, Vector3 targetPos)
+    {
+        var dir = targetPos - castPos;
+        _spellFXInstance = Instantiate(SpellFX, dir, Quaternion.LookRotation(dir));
+    }
+
+    public virtual void CastSpell(Vector3 castPos, Vector3 targetPos, SpellCastType type)
+    {
+        if (type == SpellCastType.PointTarget)
+        {
+            PointTargetSpell(targetPos);
+        }
+
+        if (type == SpellCastType.Projectile)
+        {
+            ProjectileSpell(castPos, targetPos);
+        }
+        _spellFXInstance.transform.localScale = Vector3.one * SpellScale;
+        OnSpellCast?.Invoke();
+    }
+}
+
+public enum SpellCastType
+{
+    PointTarget,
+    Projectile,
+    AllyTarget,
+    EnemyTarget,
+    None
 }

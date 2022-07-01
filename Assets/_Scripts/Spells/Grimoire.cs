@@ -8,6 +8,12 @@ public class Grimoire : MonoBehaviour
     public SpellBook Darkhold;
     public TextAsset JsonData;
 
+    public List<SpellHolder> AvailableSpells;
+    [SerializeField] private List<SpellHolder> _assignedSpells;
+    public List<UISpellItem> UISpellItems;
+
+    public GameObject SpellBar;
+
     private void Start()
     {
         if (Instance == null)
@@ -16,7 +22,7 @@ public class Grimoire : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        FetchData();
+        //FetchData();
     }
 
     private void FetchData()
@@ -26,15 +32,21 @@ public class Grimoire : MonoBehaviour
         Darkhold = spellList;
     }
 
-    public List<Spell> GetSpells(int count)
+    public List<SpellHolder> GetSpells(int count)
     {
-        List<Spell> randomSpells = new List<Spell>();
+        List<SpellHolder> randomSpells = new List<SpellHolder>();
         for (int i = 0; i < count; i++)
         {
-            int randomSpell = Random.Range(0, Darkhold.Spells.Count);
-            randomSpells.Add(Darkhold.Spells[randomSpell]);
-            Darkhold.Spells.RemoveAt(randomSpell);
+            int randomIndex = Random.Range(0, AvailableSpells.Count);
+            randomSpells.Add(AvailableSpells[randomIndex]);
+            AvailableSpells.RemoveAt(randomIndex);
         }
+
+        _assignedSpells = randomSpells;
         return randomSpells;
+    }
+
+    public void UpdateUISpellBar(SpellHolder usedSpell)
+    {
     }
 }
