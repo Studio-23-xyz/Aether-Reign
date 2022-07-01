@@ -52,6 +52,7 @@ public class SpellBaseSO : ScriptableObject
             ProjectileSpell(castPos, targetPos);
         }
         _spellFXInstance.transform.localScale = Vector3.one * SpellScale;
+        Destroy(_spellFXInstance, 2.5f);
         OnSpellCast?.Invoke();
     }
 }

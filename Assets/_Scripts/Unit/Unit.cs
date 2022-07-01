@@ -152,7 +152,7 @@ public class Unit : MonoBehaviour
             if (IsAimingSpell)
             {
                 TurnTowardsSpellCast(hitPos+TileOffset);
-                _currentlySelectedSpell.Mezika.CastSpell(transform.position, (hitPos), _currentlySelectedSpell.Mezika.SpellType);
+                _currentlySelectedSpell.Mezika.CastSpell(transform.position, (hitPos + TileOffset), _currentlySelectedSpell.Mezika.SpellType);
                 //SpellGrimoire[0].CastSpell(transform.position, hitPos + TileOffset);
                 GameGrid.Instance.DisableWalkable();
                 GetActableTiles(_actionPoints, false);
