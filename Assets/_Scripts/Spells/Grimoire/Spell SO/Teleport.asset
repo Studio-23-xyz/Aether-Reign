@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8845e7e186ed78442b7e8b6a37314320, type: 3}
-  m_Name: ChaosBolt
+  m_Name: Teleport
   m_EditorClassIdentifier: 
-  SpellName: Chaos Bolt
-  SpellDescription: 'Stuns target unit for (2-4) turns. '
-  _manaCost: 30
+  SpellName: Teleport
+  SpellDescription: ???
+  _manaCost: 50
   HealthCost: 0
-  Damage: 20
+  Damage: 0
   Heal: 0
-  SpellRange: 5
+  SpellRange: 10
   _spellCastPointAOE: 0
-  CooldownTurns: 4
+  CooldownTurns: 6
   Accuracy: 0
-  SpellScale: 0.06
+  SpellScale: 0.1
   SpellType: 0
-  SpellIconSprite: {fileID: 21300000, guid: 21df9195ed43b004394e6d7913b03149, type: 3}
-  SpellFX: {fileID: 6121097030616453976, guid: edab596b9a44def4bba5fd90b3781000, type: 3}
+  SpellIconSprite: {fileID: 0}
+  SpellFX: {fileID: 0}
   OnSpellCast:
     m_PersistentCalls:
       m_Calls: []
