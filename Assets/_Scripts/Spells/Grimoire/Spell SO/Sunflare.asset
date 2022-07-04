@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8845e7e186ed78442b7e8b6a37314320, type: 3}
-  m_Name: Blast Flame
+  m_Name: Sunflare
   m_EditorClassIdentifier: 
-  SpellName: Blast Flame
-  SpellDescription: Dummy spell
-  _manaCost: 10
+  SpellName: Sunflare
+  SpellDescription: Beam of sunfire rains down on target cell
+  _manaCost: 40
   HealthCost: 0
-  Damage: 5
+  Damage: 25
   Heal: 0
-  SpellRange: 0
+  SpellRange: 6
   _spellCastPointAOE: 0
-  CooldownTurns: 1
-  Accuracy: 100
-  SpellScale: 0.06
-  SpellType: 1
-  SpellIconSprite: {fileID: 21300000, guid: 4029a9cfeb86f134c9c5af05993eaac8, type: 3}
-  SpellFX: {fileID: 8398201861461398018, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}
+  CooldownTurns: 4
+  Accuracy: 0
+  SpellScale: 0.1
+  SpellType: 0
+  SpellIconSprite: {fileID: 21300000, guid: 8ec5b52b09d90074a83d61c1334190f9, type: 3}
+  SpellFX: {fileID: 8098658187726565525, guid: b744a3721083c254eb7cef9b9f835947, type: 3}
   OnSpellCast:
     m_PersistentCalls:
       m_Calls: []

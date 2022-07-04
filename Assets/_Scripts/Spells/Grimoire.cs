@@ -5,14 +5,12 @@ using UnityEngine;
 public class Grimoire : MonoBehaviour
 {
     public static Grimoire Instance { get; private set; }
-    public SpellBook Darkhold;
-    public TextAsset JsonData;
+    //public SpellBook Darkhold;
+    //public TextAsset JsonData;
 
     public List<SpellHolder> AvailableSpells;
     private List<SpellHolder> _assignedSpells;
     public List<UISpellItem> UISpellItems;
-
-    public GameObject SpellBar;
 
     private void Start()
     {
@@ -25,12 +23,12 @@ public class Grimoire : MonoBehaviour
         //FetchData();
     }
 
-    private void FetchData()
-    {
-        string jsonContent = JsonData.ToString();
-        SpellBook spellList = JsonConvert.DeserializeObject<SpellBook>(jsonContent);
-        Darkhold = spellList;
-    }
+    //private void FetchData()
+    //{
+    //    string jsonContent = JsonData.ToString();
+    //    SpellBook spellList = JsonConvert.DeserializeObject<SpellBook>(jsonContent);
+    //    Darkhold = spellList;
+    //}
 
     public List<SpellHolder> GetSpells(int count)
     {

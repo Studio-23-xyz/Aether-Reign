@@ -44,7 +44,7 @@ public class UISpellItem : MonoBehaviour
             return;
 
         CooldownTurns--;
-        if (CooldownTurns == 0)
+        if (CooldownTurns < 0)
         {
             OnCooldown = false;
             SetOverlayState(false);

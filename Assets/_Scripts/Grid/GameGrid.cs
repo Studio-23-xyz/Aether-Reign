@@ -86,8 +86,6 @@ public class GameGrid : MonoBehaviour
         if (_gridCellPrefab == null)
             Debug.LogError($"No prefab assigned");
 
-        //_gridParent = Instantiate(new GameObject("GridParent"), Vector3.zero, Quaternion.identity);
-
         for (int y = 0; y < _height; y++)
         {
             for (int x = 0; x < _width; x++)
@@ -167,16 +165,8 @@ public class GameGrid : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        Destroy(_gridParent);
+        //Destroy(_gridParent);
 
         InitiateGrid(_height, _width, _gridSpacing);
-    }
-
-    private void OnGUI()
-    {
-        if (GUI.Button(new Rect(20, 20, 200, 40), "Regenerate Grid"))
-        {
-            RegenrateGrid();
-        }
     }
 }

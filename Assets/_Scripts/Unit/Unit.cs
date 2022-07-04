@@ -85,10 +85,10 @@ public class Unit : MonoBehaviour
     private void GetActableTiles(int tileRange, bool isSpell)
     {
         GameGrid.Instance.GetXZ(transform.position, out int unitX, out int unitZ);
-        int lowX = unitX - _actionPoints;
-        int lowZ = unitZ - _actionPoints;
-        int highX = unitX + _actionPoints;
-        int highZ = unitZ + _actionPoints;
+        int lowX = unitX - tileRange;
+        int lowZ = unitZ - tileRange;
+        int highX = unitX + tileRange;
+        int highZ = unitZ + tileRange;
 
         for (int x = lowX; x <= highX; x++)
         {
@@ -98,7 +98,7 @@ public class Unit : MonoBehaviour
                     continue;
 
                 if (GameGrid.Instance.GetPath(new Vector3(unitX, 0f, unitZ), new Vector3(x, 0f, y)).Count <=
-                    _actionPoints)
+                    tileRange)
                 {
                     var cell = GameGrid.Instance.GeneratedGrid[x, y].GetComponent<GridCell>();
 
