@@ -1,7 +1,6 @@
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -18,12 +17,13 @@ public class Unit : MonoBehaviour
 
     public int SpellsToGet;
 
+    public GameObject MoveClickMarker;
+    public GameObject CastMarker;
 
     public GameObject SpellBar;
     public GameObject UISpellItemPrefab;
 
     [SerializeField] private int _actionPoints;
-    public List<Spell> UsableSpells = new List<Spell>();
 
     public List<SpellHolder> AvailableSpells = new List<SpellHolder>();
     [SerializeField] private SpellHolder _currentlySelectedSpell;
@@ -41,38 +41,23 @@ public class Unit : MonoBehaviour
         _animator = GetComponent<Animator>();
         _agent = GetComponent<NavMeshAgent>();
         GetActableTiles(_actionPoints, isSpell: false);
-        
+
         AvailableSpells = Grimoire.Instance.GetSpells(SpellsToGet);
         AddSpellsToUI();
     }
 
     private void AddSpellsToUI()
     {
-        //foreach (var spell in SpellGrimoire)
-        //{
-        //    var spellItem = Instantiate(UISpellItemPrefab, SpellBar.transform);
-        //    spellItem.GetComponent<UISpellItem>().SetupSpellUIItem(spell.SpellIcon, spell.CooldownTurns);
-        //    spellItem.GetComponent<UISpellItem>().SetSpellAction(() =>
-        //    {
-        //        UseSpell(spell);
-        //    });
-        //}
-
         foreach (var availableSpell in AvailableSpells)
         {
             var spellUI = Instantiate(UISpellItemPrefab, SpellBar.transform);
-            spellUI.GetComponent<UISpellItem>().SetupSpellUIItem(availableSpell.Mezika.SpellIconSprite, availableSpell.Mezika.CooldownTurns);
+            spellUI.GetComponent<UISpellItem>().SetupSpellUIItem(availableSpell);
             spellUI.GetComponent<UISpellItem>().SetSpellAction(() =>
             {
                 UseSpell(availableSpell);
             });
             Grimoire.Instance.UISpellItems.Add(spellUI.GetComponent<UISpellItem>());
         }
-    }
-
-    public void DebugFuction()
-    {
-        Debug.Log($"Hello world");
     }
 
     private void UseSpell(SpellHolder spell)
@@ -109,7 +94,7 @@ public class Unit : MonoBehaviour
         {
             for (int y = lowZ; y <= highZ; y++)
             {
-                if (!GameGrid.Instance.IsWithinGrid(x,y))
+                if (!GameGrid.Instance.IsWithinGrid(x, y))
                     continue;
 
                 if (GameGrid.Instance.GetPath(new Vector3(unitX, 0f, unitZ), new Vector3(x, 0f, y)).Count <=
@@ -145,21 +130,30 @@ public class Unit : MonoBehaviour
                 NavMeshPath targetPath = new NavMeshPath();
                 _agent.CalculatePath(hitPos + TileOffset, targetPath);
                 _agent.SetPath(targetPath);
+
+                var marker = Instantiate(MoveClickMarker, hitPos + TileOffset, Quaternion.identity);
+                marker.transform.localScale = Vector3.one * 0.4f;
+                Destroy(marker, 2f);
+
                 WaitForMoveFinish();
                 //TileMovement(GameGrid.Instance.GetPath(transform.position, hitPos));
             }
 
             if (IsAimingSpell)
             {
-                TurnTowardsSpellCast(hitPos+TileOffset);
+                TurnTowardsSpellCast(hitPos + TileOffset);
                 _currentlySelectedSpell.Mezika.CastSpell(transform.position, (hitPos + TileOffset), _currentlySelectedSpell.Mezika.SpellType);
-                //SpellGrimoire[0].CastSpell(transform.position, hitPos + TileOffset);
+
+                var marker = Instantiate(CastMarker, hitPos + TileOffset, Quaternion.identity);
+                marker.transform.localScale = Vector3.one * 0.4f;
+                Destroy(marker, 2f);
+
                 GameGrid.Instance.DisableWalkable();
                 GetActableTiles(_actionPoints, false);
                 IsAimingSpell = false;
                 OnSpellCasted?.Invoke(_currentlySelectedSpell);
                 _currentlySelectedSpell = null;
-                
+
             }
             OnTurnCompleted?.Invoke();
         }

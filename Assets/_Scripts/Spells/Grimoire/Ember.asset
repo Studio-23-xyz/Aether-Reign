@@ -16,13 +16,16 @@ MonoBehaviour:
   SpellDescription: Hurl fire at targeted unit, can cause burn
   _manaCost: 20
   HealthCost: 0
-  Damage: 0
+  Damage: 15
   Heal: 0
   SpellRange: 0
   _spellCastPointAOE: 0
-  CooldownTurns: 0
+  CooldownTurns: 3
   Accuracy: 0
-  SpellScale: 0.02
+  SpellScale: 0.1
   SpellType: 0
   SpellIconSprite: {fileID: 21300000, guid: dd3885098198d104888439be4c590aba, type: 3}
   SpellFX: {fileID: 693454231405589813, guid: e26f9e0b6f93d1842b15824e6ff2f21c, type: 3}
+  OnSpellCast:
+    m_PersistentCalls:
+      m_Calls: []

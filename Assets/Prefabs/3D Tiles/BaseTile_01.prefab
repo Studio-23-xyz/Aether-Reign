@@ -118,7 +118,7 @@ MonoBehaviour:
   _yPos: 0
   IsWalkable: 0
   IsOccupied: 0
-  MoveColor: {r: 0, g: 1, b: 0.19350243, a: 1}
+  MoveColor: {r: 0, g: 0.3018868, b: 0.1057894, a: 1}
   SpellTileColor: {r: 1, g: 0.8862745, b: 0, a: 1}
   MoveVisibility: {fileID: 4933992673554520300}
 --- !u!65 &6143369987795584576
@@ -238,7 +238,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2e9f0076ac15bb241a8eb3e27f5847d1, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.3019608, b: 0.105882354, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

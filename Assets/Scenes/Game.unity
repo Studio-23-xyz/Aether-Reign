@@ -7335,6 +7335,8 @@ MonoBehaviour:
   - {fileID: 5878035588170403817, guid: ab0c6d4768b6c6a48bda17c7416acb00, type: 3}
   - {fileID: 1147223414559011722, guid: 194c67e7b7e2ec84a90708c20c46745c, type: 3}
   - {fileID: 5878035588170403817, guid: 53153710aee66644281f0e7d9915ca9c, type: 3}
+  - {fileID: 5932717035895376998, guid: 4858e7da98f590844b485cfa317c2096, type: 3}
+  - {fileID: 5932717035895376998, guid: 4a907aad460cab140a31b44c4382cdcf, type: 3}
   _assignedSpells: []
   UISpellItems: []
   SpellBar: {fileID: 0}
@@ -13283,12 +13285,15 @@ MonoBehaviour:
   IsAimingSpell: 0
   IsCastingSpell: 0
   TileOffset: {x: 0, y: 0.5, z: 0.5}
-  SpellsToGet: 4
+  SpellsToGet: 5
+  MoveClickMarker: {fileID: 6151711726370333278, guid: afc5bb9e0b31c47b8af6a16141183849,
+    type: 3}
+  CastMarker: {fileID: 8953640725137565493, guid: c0367e0053af14b9688b3e5ca5722911,
+    type: 3}
   SpellBar: {fileID: 589240103}
   UISpellItemPrefab: {fileID: 8581901837005147488, guid: 5a1e13d3b1244d847b930dc0aece935d,
     type: 3}
   _actionPoints: 4
-  UsableSpells: []
   AvailableSpells: []
   _currentlySelectedSpell: {fileID: 0}
   OnTurnCompleted:
@@ -15151,6 +15156,7 @@ MonoBehaviour:
   _cooldownTurns: 0
   _cooldownOverlay: {fileID: 5749584393968101691}
   _spellButton: {fileID: 1695952120750159900}
+  IsReady: 0
 --- !u!1 &3986311023660585659
 GameObject:
   m_ObjectHideFlags: 0
@@ -16730,6 +16736,7 @@ MonoBehaviour:
   _cooldownTurns: 0
   _cooldownOverlay: {fileID: 1504519510861685032}
   _spellButton: {fileID: 5522182229183508495}
+  IsReady: 0
 --- !u!114 &7859006527367367962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16746,6 +16753,7 @@ MonoBehaviour:
   _cooldownTurns: 0
   _cooldownOverlay: {fileID: 1504519510420743001}
   _spellButton: {fileID: 5522182229289005694}
+  IsReady: 0
 --- !u!114 &7859006527895625482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16762,6 +16770,7 @@ MonoBehaviour:
   _cooldownTurns: 0
   _cooldownOverlay: {fileID: 1504519512056230217}
   _spellButton: {fileID: 5522182228726669422}
+  IsReady: 0
 --- !u!114 &7859006528062808945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16778,6 +16787,7 @@ MonoBehaviour:
   _cooldownTurns: 0
   _cooldownOverlay: {fileID: 1504519511889956146}
   _spellButton: {fileID: 5522182228020517909}
+  IsReady: 0
 --- !u!1 &7959022074896750611
 GameObject:
   m_ObjectHideFlags: 0

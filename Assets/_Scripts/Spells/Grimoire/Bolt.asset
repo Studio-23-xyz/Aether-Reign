@@ -23,9 +23,9 @@ MonoBehaviour:
   CooldownTurns: 4
   Accuracy: 0
   SpellScale: 0.5
-  SpellType: 0
+  SpellType: 1
   SpellIconSprite: {fileID: 21300000, guid: 2456dd2824f5ec540830760922f5bac6, type: 3}
-  SpellFX: {fileID: 8779592066186592422, guid: dc23428272f0ee3489c468f483fad239, type: 3}
+  SpellFX: {fileID: 1003908389128766111, guid: c081614684d3e634a997f935298da060, type: 3}
   OnSpellCast:
     m_PersistentCalls:
       m_Calls: []

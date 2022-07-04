@@ -9,7 +9,7 @@ public class Grimoire : MonoBehaviour
     public TextAsset JsonData;
 
     public List<SpellHolder> AvailableSpells;
-    [SerializeField] private List<SpellHolder> _assignedSpells;
+    private List<SpellHolder> _assignedSpells;
     public List<UISpellItem> UISpellItems;
 
     public GameObject SpellBar;
@@ -48,5 +48,12 @@ public class Grimoire : MonoBehaviour
 
     public void UpdateUISpellBar(SpellHolder usedSpell)
     {
+        foreach (var uiSpellItem in UISpellItems)
+        {
+            if (uiSpellItem.SpellReference == usedSpell)
+            {
+                uiSpellItem.SetOverlayState(true);
+            }
+        }
     }
 }

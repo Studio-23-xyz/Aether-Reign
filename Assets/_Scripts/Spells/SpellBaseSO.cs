@@ -37,7 +37,7 @@ public class SpellBaseSO : ScriptableObject
     public virtual void ProjectileSpell(Vector3 castPos, Vector3 targetPos)
     {
         var dir = targetPos - castPos;
-        _spellFXInstance = Instantiate(SpellFX, dir, Quaternion.LookRotation(dir));
+        _spellFXInstance = Instantiate(SpellFX, castPos + new Vector3(0f, 0.6f, 0f), Quaternion.LookRotation(dir));
     }
 
     public virtual void CastSpell(Vector3 castPos, Vector3 targetPos, SpellCastType type)
@@ -52,7 +52,7 @@ public class SpellBaseSO : ScriptableObject
             ProjectileSpell(castPos, targetPos);
         }
         _spellFXInstance.transform.localScale = Vector3.one * SpellScale;
-        Destroy(_spellFXInstance, 2.5f);
+        Destroy(_spellFXInstance, 5f);
         OnSpellCast?.Invoke();
     }
 }
