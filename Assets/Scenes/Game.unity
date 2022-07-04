@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7337,7 +7337,6 @@ MonoBehaviour:
   - {fileID: 5878035588170403817, guid: 53153710aee66644281f0e7d9915ca9c, type: 3}
   - {fileID: 5932717035895376998, guid: 4858e7da98f590844b485cfa317c2096, type: 3}
   - {fileID: 5932717035895376998, guid: 4a907aad460cab140a31b44c4382cdcf, type: 3}
-  _assignedSpells: []
   UISpellItems: []
   SpellBar: {fileID: 0}
 --- !u!4 &1182955562
@@ -7521,6 +7520,104 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1288077856}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1220529204
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1220529205}
+  - component: {fileID: 1220529208}
+  - component: {fileID: 1220529207}
+  - component: {fileID: 1220529206}
+  m_Layer: 8
+  m_Name: Capsule
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1220529205
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220529204}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1061090885443566748}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1220529206
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220529204}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1220529207
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220529204}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1220529208
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220529204}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1230046187 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3867546701829490568, guid: b35fdbd67ab8e004aad548304ab4c59d,
@@ -12982,7 +13079,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &390256581835161577
 Transform:
   m_ObjectHideFlags: 0
@@ -13168,7 +13265,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &530605675726893570
 GameObject:
   m_ObjectHideFlags: 0
@@ -13311,9 +13408,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1182955561}
+        m_TargetAssemblyTypeName: Grimoire, Assembly-CSharp
+        m_MethodName: UpdateUISpellBar
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnSpellCasted:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1182955561}
+        m_TargetAssemblyTypeName: Grimoire, Assembly-CSharp
+        m_MethodName: UpdateUISpellBar
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &904172767634682711
 GameObject:
   m_ObjectHideFlags: 0
@@ -13418,7 +13539,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 428422666994902566}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 9000000, guid: 17c34edcca869524595d4ea15436cf56, type: 3}
   m_Controller: {fileID: 9100000, guid: c8e0b88db85127a40911ea7eff9f5d63, type: 2}
   m_CullingMode: 0
@@ -13445,6 +13566,7 @@ Transform:
   - {fileID: 8573959271430461434}
   - {fileID: 4821545702981819400}
   - {fileID: 1586890890}
+  - {fileID: 1220529205}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -15153,10 +15275,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spellIcon: {fileID: 1518116507882365181}
-  _cooldownTurns: 0
+  _originalCooldown: 0
+  CooldownTurns: 0
   _cooldownOverlay: {fileID: 5749584393968101691}
   _spellButton: {fileID: 1695952120750159900}
-  IsReady: 0
+  CooldownText: {fileID: 0}
+  OnCooldown: 0
+  SpellReference: {fileID: 0}
 --- !u!1 &3986311023660585659
 GameObject:
   m_ObjectHideFlags: 0
@@ -16733,10 +16858,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spellIcon: {fileID: 5637080557397158126}
-  _cooldownTurns: 0
+  _originalCooldown: 0
+  CooldownTurns: 0
   _cooldownOverlay: {fileID: 1504519510861685032}
   _spellButton: {fileID: 5522182229183508495}
-  IsReady: 0
+  CooldownText: {fileID: 0}
+  OnCooldown: 0
+  SpellReference: {fileID: 0}
 --- !u!114 &7859006527367367962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16750,10 +16878,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spellIcon: {fileID: 5637080557820111519}
-  _cooldownTurns: 0
+  _originalCooldown: 0
+  CooldownTurns: 0
   _cooldownOverlay: {fileID: 1504519510420743001}
   _spellButton: {fileID: 5522182229289005694}
-  IsReady: 0
+  CooldownText: {fileID: 0}
+  OnCooldown: 0
+  SpellReference: {fileID: 0}
 --- !u!114 &7859006527895625482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16767,10 +16898,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spellIcon: {fileID: 5637080559422568591}
-  _cooldownTurns: 0
+  _originalCooldown: 0
+  CooldownTurns: 0
   _cooldownOverlay: {fileID: 1504519512056230217}
   _spellButton: {fileID: 5522182228726669422}
-  IsReady: 0
+  CooldownText: {fileID: 0}
+  OnCooldown: 0
+  SpellReference: {fileID: 0}
 --- !u!114 &7859006528062808945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16784,10 +16918,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spellIcon: {fileID: 5637080558652441844}
-  _cooldownTurns: 0
+  _originalCooldown: 0
+  CooldownTurns: 0
   _cooldownOverlay: {fileID: 1504519511889956146}
   _spellButton: {fileID: 5522182228020517909}
-  IsReady: 0
+  CooldownText: {fileID: 0}
+  OnCooldown: 0
+  SpellReference: {fileID: 0}
 --- !u!1 &7959022074896750611
 GameObject:
   m_ObjectHideFlags: 0

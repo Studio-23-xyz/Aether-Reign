@@ -264,9 +264,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spellIcon: {fileID: 5637080557698865100}
-  _cooldownTurns: 0
+  _originalCooldown: 0
+  CooldownTurns: 0
   _cooldownOverlay: {fileID: 1504519510559022602}
   _spellButton: {fileID: 5522182229418626861}
+  CooldownText: {fileID: 3471923667579044266}
+  OnCooldown: 0
+  SpellReference: {fileID: 0}
 --- !u!1 &8918691249680400805
 GameObject:
   m_ObjectHideFlags: 0

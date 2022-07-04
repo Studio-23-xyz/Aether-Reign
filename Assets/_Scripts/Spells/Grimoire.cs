@@ -53,7 +53,16 @@ public class Grimoire : MonoBehaviour
             if (uiSpellItem.SpellReference == usedSpell)
             {
                 uiSpellItem.SetOverlayState(true);
+                uiSpellItem.OnCooldown = true;
             }
+        }
+    }
+
+    public void UpdateUISpellBar()
+    {
+        foreach (var uiSpellItem in UISpellItems)
+        {
+            uiSpellItem.Cooldown();
         }
     }
 }

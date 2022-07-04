@@ -20,7 +20,7 @@ MonoBehaviour:
   Heal: 0
   SpellRange: 0
   _spellCastPointAOE: 0
-  CooldownTurns: 0
+  CooldownTurns: 1
   Accuracy: 100
   SpellScale: 0.06
   SpellType: 1
