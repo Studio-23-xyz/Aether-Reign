@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
-[CreateAssetMenu(fileName = "SpellSO")]
+[CreateAssetMenu(fileName = "SpellSO", menuName = "Spells/")]
 public class SpellBaseSO : ScriptableObject
 {
     #region Fields
@@ -9,7 +10,7 @@ public class SpellBaseSO : ScriptableObject
     public string SpellName;
     [TextArea] public string SpellDescription;
 
-    [SerializeField] private int _manaCost;
+    public int ManaCost;
     public int HealthCost;
     public int Damage;
     public int Heal;
@@ -55,13 +56,4 @@ public class SpellBaseSO : ScriptableObject
         Destroy(_spellFXInstance, 5f);
         OnSpellCast?.Invoke();
     }
-}
-
-public enum SpellCastType
-{
-    PointTarget,
-    Projectile,
-    AllyTarget,
-    EnemyTarget,
-    None
 }

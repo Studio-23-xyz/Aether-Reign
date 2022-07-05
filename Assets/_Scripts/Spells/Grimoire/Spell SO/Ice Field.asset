@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpellName: Ice Field
   SpellDescription: Damage and slow all units around the area
-  _manaCost: 30
+  ManaCost: 45
   HealthCost: 0
   Damage: 15
   Heal: 0

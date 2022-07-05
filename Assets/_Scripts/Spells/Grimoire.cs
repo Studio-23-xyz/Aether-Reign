@@ -1,6 +1,10 @@
+using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Grimoire : MonoBehaviour
 {
@@ -30,6 +34,11 @@ public class Grimoire : MonoBehaviour
     //    Darkhold = spellList;
     //}
 
+    private void Update()
+    {
+        
+    }
+
     public List<SpellHolder> GetSpells(int count)
     {
         List<SpellHolder> randomSpells = new List<SpellHolder>();
@@ -41,7 +50,26 @@ public class Grimoire : MonoBehaviour
         }
 
         _assignedSpells = randomSpells;
+        CheckSpellUsability();
         return randomSpells;
+    }
+
+    private async void CheckSpellUsability()
+    {
+        while (true)
+        {
+            foreach (var spellItem in UISpellItems)
+            {
+                if (MazikaSystem.Instance.HasEnoughMana(spellItem.SpellReference.Mezika.ManaCost))
+                {
+                    spellItem.gameObject.GetComponentInChildren<Button>().interactable = true;
+                }
+                else 
+                    spellItem.gameObject.GetComponentInChildren<Button>().interactable = false;
+            }
+
+            await UniTask.Delay(TimeSpan.FromSeconds(2.5f));
+        }
     }
 
     public void UpdateUISpellBar(SpellHolder usedSpell)

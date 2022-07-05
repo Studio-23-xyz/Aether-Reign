@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpellName: Blast Flame
   SpellDescription: Dummy spell
-  _manaCost: 10
+  ManaCost: 30
   HealthCost: 0
   Damage: 5
   Heal: 0

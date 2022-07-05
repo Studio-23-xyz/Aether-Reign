@@ -76,6 +76,8 @@ public class Unit : MonoBehaviour
 
     private void SetupSpell(SpellHolder spell)
     {
+        if (!MazikaSystem.Instance.HasEnoughMana(spell.Mezika.ManaCost))
+            return;
         _currentlySelectedSpell = spell;
         IsAimingSpell = true;
         GameGrid.Instance.DisableWalkable();
@@ -143,6 +145,7 @@ public class Unit : MonoBehaviour
             {
                 TurnTowardsSpellCast(hitPos + TileOffset);
                 _currentlySelectedSpell.Mezika.CastSpell(transform.position, (hitPos + TileOffset), _currentlySelectedSpell.Mezika.SpellType);
+                MazikaSystem.Instance.UseMana(_currentlySelectedSpell.Mezika.ManaCost);
 
                 var marker = Instantiate(CastMarker, hitPos + TileOffset, Quaternion.identity);
                 marker.transform.localScale = Vector3.one * 0.4f;
@@ -163,7 +166,6 @@ public class Unit : MonoBehaviour
     {
         if (IsMoving || IsCastingSpell || IsAimingSpell)
             return false;
-        Debug.Log($"Attempt successful");
         return true;
     }
 

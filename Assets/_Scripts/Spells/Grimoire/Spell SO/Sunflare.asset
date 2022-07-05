@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpellName: Sunflare
   SpellDescription: Beam of sunfire rains down on target cell
-  _manaCost: 40
+  ManaCost: 30
   HealthCost: 0
   Damage: 25
   Heal: 0

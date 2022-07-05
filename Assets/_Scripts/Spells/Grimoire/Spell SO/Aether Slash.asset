@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpellName: Aether Slash
   SpellDescription: Attacks all enemy units 3 tiles adjacent to the target area.
-  _manaCost: 65
+  ManaCost: 30
   HealthCost: 0
   Damage: 35
   Heal: 0

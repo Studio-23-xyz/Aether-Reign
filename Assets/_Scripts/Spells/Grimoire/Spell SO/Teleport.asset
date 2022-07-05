@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpellName: Teleport
   SpellDescription: ???
-  _manaCost: 50
+  ManaCost: 30
   HealthCost: 0
   Damage: 0
   Heal: 0

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7917,6 +7917,7 @@ MonoBehaviour:
   - {fileID: 5932717035895376998, guid: 4858e7da98f590844b485cfa317c2096, type: 3}
   - {fileID: 5932717035895376998, guid: 4a907aad460cab140a31b44c4382cdcf, type: 3}
   - {fileID: 5932717035895376998, guid: 25c9305cd5b941f4dbc87f10bd20c630, type: 3}
+  - {fileID: 5932717035895376998, guid: 55873a1a37ee599479ec279fb4acc192, type: 3}
   UISpellItems: []
 --- !u!4 &1182955562
 Transform:
@@ -8117,7 +8118,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1220529205
 Transform:
   m_ObjectHideFlags: 0
@@ -11065,6 +11066,7 @@ GameObject:
   - component: {fileID: 1586890893}
   - component: {fileID: 1586890892}
   - component: {fileID: 1586890891}
+  - component: {fileID: 1586890894}
   m_Layer: 8
   m_Name: PlayerUI
   m_TagString: Untagged
@@ -11155,6 +11157,20 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1586890894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586890889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3751377a4c9602f42bd8c49142083263, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ManaCircle: {fileID: 579882683}
+  HealthCircle: {fileID: 893725111}
 --- !u!4 &1591170541 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3867546701829490568, guid: b35fdbd67ab8e004aad548304ab4c59d,
@@ -13966,7 +13982,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &390256581835161577
 Transform:
   m_ObjectHideFlags: 0
@@ -13993,6 +14009,7 @@ GameObject:
   - component: {fileID: 1061090885443566748}
   - component: {fileID: 1061090885443566747}
   - component: {fileID: 876988823208710322}
+  - component: {fileID: 5015843035351863436}
   - component: {fileID: 5015843035351863435}
   - component: {fileID: 2106338345}
   m_Layer: 8
@@ -14152,7 +14169,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &530605675726893570
 GameObject:
   m_ObjectHideFlags: 0
@@ -14426,7 +14443,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 428422666994902566}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 17c34edcca869524595d4ea15436cf56, type: 3}
   m_Controller: {fileID: 9100000, guid: c8e0b88db85127a40911ea7eff9f5d63, type: 2}
   m_CullingMode: 0
@@ -16434,6 +16451,22 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &5015843035351863436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 428422666994902566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90530f272fd5593479bdd8b86a216601, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentMana: 0
+  _maxMana: 100
+  _manaRegenRate: 5
+  _timeToRegenStart: 1.5
 --- !u!4 &5080460131456561051
 Transform:
   m_ObjectHideFlags: 0

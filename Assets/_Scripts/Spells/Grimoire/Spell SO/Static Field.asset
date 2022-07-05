@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpellName: Static Field
   SpellDescription: ZAP!
-  _manaCost: 30
+  ManaCost: 30
   HealthCost: 0
   Damage: 20
   Heal: 0
