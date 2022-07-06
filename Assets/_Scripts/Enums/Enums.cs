@@ -6,3 +6,12 @@ public enum SpellCastType
     EnemyTarget,
     None
 }
+
+public enum CellState
+{
+    Normal,
+    Blazed,
+    Frosted,
+    Shocked,
+    Poisoned
+}

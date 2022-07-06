@@ -1,6 +1,7 @@
-using UnityEngine;
-
-public class Ember : SpellHolder
+namespace _Scripts.Spells
 {
+    public class Ember : SpellHolder
+    {
 
+    }
 }

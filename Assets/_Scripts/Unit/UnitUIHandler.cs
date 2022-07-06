@@ -1,14 +1,16 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UnitUIHandler : MonoBehaviour
+namespace AetherReign._Scripts.Unit
 {
-    public Image ManaCircle;
-    public Image HealthCircle;
-
-    private void Update()
+    public class UnitUIHandler : MonoBehaviour
     {
-        ManaCircle.fillAmount = MazikaSystem.Instance.CurrentMana / 100f;
+        public Image ManaCircle;
+        public Image HealthCircle;
+
+        private void Update()
+        {
+            ManaCircle.fillAmount = MazikaSystem.Instance.CurrentMana / 100f;
+        }
     }
 }

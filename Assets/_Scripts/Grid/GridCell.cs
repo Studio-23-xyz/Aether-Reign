@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
@@ -10,7 +11,10 @@ public class GridCell : MonoBehaviour
     public Color MoveColor;
     public Color SpellTileColor;
 
+    public CellState CurrentCellState;
+
     public GameObject MoveVisibility;
+    public bool SpellAoEIsActive;
 
     private void Start()
     {
@@ -41,6 +45,7 @@ public class GridCell : MonoBehaviour
         _yPos = y;
         IsWalkable = walkable;
         IsOccupied = occupied;
+        CurrentCellState = CellState.Normal;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -56,5 +61,10 @@ public class GridCell : MonoBehaviour
     {
         IsWalkable = true;
         IsOccupied = true;
+    }
+
+    private void OnMouseEnter()
+    {
+        throw new NotImplementedException();
     }
 }

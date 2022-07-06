@@ -1,94 +1,96 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class Grimoire : MonoBehaviour
+namespace _Scripts.Spells
 {
-    public static Grimoire Instance { get; private set; }
-    //public SpellBook Darkhold;
-    //public TextAsset JsonData;
-
-    public List<SpellHolder> AvailableSpells;
-    private List<SpellHolder> _assignedSpells;
-    public List<UISpellItem> UISpellItems;
-
-    private void Start()
+    public class Grimoire : MonoBehaviour
     {
-        if (Instance == null)
-            Instance = this;
-        else
+        public static Grimoire Instance { get; private set; }
+        //public SpellBook Darkhold;
+        //public TextAsset JsonData;
+
+        public List<SpellHolder> AvailableSpells;
+        private List<SpellHolder> _assignedSpells;
+        public List<UISpellItem> UISpellItems;
+
+        private void Start()
         {
-            Destroy(gameObject);
+            if (Instance == null)
+                Instance = this;
+            else
+            {
+                Destroy(gameObject);
+            }
+            //FetchData();
         }
-        //FetchData();
-    }
 
-    //private void FetchData()
-    //{
-    //    string jsonContent = JsonData.ToString();
-    //    SpellBook spellList = JsonConvert.DeserializeObject<SpellBook>(jsonContent);
-    //    Darkhold = spellList;
-    //}
+        //private void FetchData()
+        //{
+        //    string jsonContent = JsonData.ToString();
+        //    SpellBook spellList = JsonConvert.DeserializeObject<SpellBook>(jsonContent);
+        //    Darkhold = spellList;
+        //}
 
-    private void Update()
-    {
+        private void Update()
+        {
         
-    }
-
-    public List<SpellHolder> GetSpells(int count)
-    {
-        List<SpellHolder> randomSpells = new List<SpellHolder>();
-        for (int i = 0; i < count; i++)
-        {
-            int randomIndex = Random.Range(0, AvailableSpells.Count);
-            randomSpells.Add(AvailableSpells[randomIndex]);
-            AvailableSpells.RemoveAt(randomIndex);
         }
 
-        _assignedSpells = randomSpells;
-        CheckSpellUsability();
-        return randomSpells;
-    }
-
-    private async void CheckSpellUsability()
-    {
-        while (true)
+        public List<SpellHolder> GetSpells(int count)
         {
-            foreach (var spellItem in UISpellItems)
+            List<SpellHolder> randomSpells = new List<SpellHolder>();
+            for (int i = 0; i < count; i++)
             {
-                if (MazikaSystem.Instance.HasEnoughMana(spellItem.SpellReference.Mezika.ManaCost))
+                int randomIndex = Random.Range(0, AvailableSpells.Count);
+                randomSpells.Add(AvailableSpells[randomIndex]);
+                AvailableSpells.RemoveAt(randomIndex);
+            }
+
+            _assignedSpells = randomSpells;
+            CheckSpellUsability();
+            return randomSpells;
+        }
+
+        private async void CheckSpellUsability()
+        {
+            while (true)
+            {
+                foreach (var spellItem in UISpellItems)
                 {
-                    spellItem.gameObject.GetComponentInChildren<Button>().interactable = true;
+                    if (MazikaSystem.Instance.HasEnoughMana(spellItem.SpellReference.Mezika.ManaCost))
+                    {
+                        spellItem.gameObject.GetComponentInChildren<Button>().interactable = true;
+                    }
+                    else 
+                        spellItem.gameObject.GetComponentInChildren<Button>().interactable = false;
                 }
-                else 
-                    spellItem.gameObject.GetComponentInChildren<Button>().interactable = false;
+
+                await UniTask.Delay(TimeSpan.FromSeconds(2.5f));
             }
-
-            await UniTask.Delay(TimeSpan.FromSeconds(2.5f));
         }
-    }
 
-    public void UpdateUISpellBar(SpellHolder usedSpell)
-    {
-        foreach (var uiSpellItem in UISpellItems)
+        public void UpdateUISpellBar(SpellHolder usedSpell)
         {
-            if (uiSpellItem.SpellReference == usedSpell)
+            foreach (var uiSpellItem in UISpellItems)
             {
-                uiSpellItem.SetOverlayState(true);
-                uiSpellItem.OnCooldown = true;
+                if (uiSpellItem.SpellReference == usedSpell)
+                {
+                    uiSpellItem.SetOverlayState(true);
+                    uiSpellItem.OnCooldown = true;
+                }
             }
         }
-    }
 
-    public void UpdateUISpellBar()
-    {
-        foreach (var uiSpellItem in UISpellItems)
+        public void UpdateUISpellBar()
         {
-            uiSpellItem.Cooldown();
+            foreach (var uiSpellItem in UISpellItems)
+            {
+                uiSpellItem.Cooldown();
+            }
         }
     }
 }

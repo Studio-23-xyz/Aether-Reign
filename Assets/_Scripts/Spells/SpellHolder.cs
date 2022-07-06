@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class SpellHolder : MonoBehaviour
+namespace _Scripts.Spells
 {
-    public SpellBaseSO Mezika;
+    public class SpellHolder : MonoBehaviour
+    {
+        public SpellBaseSO Mezika;
+    }
 }

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class MazikaSystem : MonoBehaviour
@@ -8,8 +7,7 @@ public class MazikaSystem : MonoBehaviour
     [SerializeField] private float _currentMana;
     [SerializeField] private float _maxMana;
 
-    [SerializeField] private float _manaRegenRate;
-    [SerializeField] private float _timeToRegenStart;
+    [SerializeField] private float _manaRegenAmount;
     private float _counter;
 
     public float CurrentMana => _currentMana;
@@ -29,15 +27,13 @@ public class MazikaSystem : MonoBehaviour
         _currentMana = _maxMana;
     }
 
-    private void Update()
+    public void RegenMana()
     {
         if (_currentMana < _maxMana)
         {
-            _counter += Time.deltaTime;
-            if (_counter >= _timeToRegenStart)
-            {
-                _currentMana += _manaRegenRate * Time.deltaTime;
-            }
+            _currentMana += _manaRegenAmount;
+            if (_currentMana >= _maxMana)
+                _currentMana = _maxMana;
         }
     }
 

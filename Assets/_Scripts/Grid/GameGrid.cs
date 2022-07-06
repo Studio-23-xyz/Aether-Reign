@@ -20,10 +20,10 @@ public class GameGrid : MonoBehaviour
         Instance = this;
     }
 
-    public List<Vector3> GetPath(Vector3 fromPosition, Vector3 ToPosition)
+    public List<Vector3> GetPath(Vector3 fromPosition, Vector3 toPosition)
     {
         GetXZ(fromPosition, out int fromX, out int fromZ);
-        GetXZ(ToPosition, out int toX, out int toZ);
+        GetXZ(toPosition, out int toX, out int toZ);
 
         List<Vector3> path = new List<Vector3>();
 
@@ -154,6 +154,37 @@ public class GameGrid : MonoBehaviour
             {
                 GeneratedGrid[x, y].GetComponent<GridCell>().SetTileVisibility(false);
                 GeneratedGrid[x, y].GetComponent<GridCell>().IsWalkable = false;
+            }
+        }
+    }
+
+    public void GetActableTiles(int tileRange, bool isSpell, Transform origin)
+    {
+        List<GameObject> actableTiles = new List<GameObject>();
+        GetXZ(origin.position, out var unitX, out var unitZ);
+        var lowX = unitX - tileRange;
+        var lowZ = unitZ - tileRange;
+        var highX = unitX + tileRange;
+        var highZ = unitZ + tileRange;
+
+        for (var x = lowX; x <= highX; x++)
+        for (var y = lowZ; y <= highZ; y++)
+        {
+            if (!IsWithinGrid(x, y))
+                continue;
+
+            if (GetPath(new Vector3(unitX, 0f, unitZ), new Vector3(x, 0f, y)).Count <=
+                tileRange)
+            {
+                actableTiles.Add(GeneratedGrid[x, y]);
+                var cell = GeneratedGrid[x, y].GetComponent<GridCell>();
+
+                if (!cell.IsOccupied)
+                {
+                    cell.SetTileVisibility(true);
+                    cell.SetTileVisualColor(isSpell);
+                    cell.IsWalkable = true;
+                }
             }
         }
     }

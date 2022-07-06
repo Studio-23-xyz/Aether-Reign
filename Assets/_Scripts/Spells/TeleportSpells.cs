@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public class TeleportSpells : SpellBaseSO
+namespace _Scripts.Spells
 {
-    public override void CastSpell(Vector3 castPos, Vector3 targetPos, SpellCastType type)
+    public class TeleportSpells : SpellBaseSO
     {
-        base.CastSpell(castPos, targetPos, type);
+        public override void CastSpell(Vector3 castPos, Vector3 targetPos, SpellCastType type)
+        {
+            base.CastSpell(castPos, targetPos, type);
+        }
     }
 }
