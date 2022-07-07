@@ -14,11 +14,13 @@ public class GridCell : MonoBehaviour
     public CellState CurrentCellState;
 
     public GameObject MoveVisibility;
+    public GameObject SpellAoEVisual;
     public bool SpellAoEIsActive;
 
     private void Start()
     {
         MoveVisibility.SetActive(false);
+        SpellAoEVisual.SetActive(false);
         var originalScale = transform.localScale;
         transform.localScale = Vector3.zero;
 
@@ -61,10 +63,5 @@ public class GridCell : MonoBehaviour
     {
         IsWalkable = true;
         IsOccupied = true;
-    }
-
-    private void OnMouseEnter()
-    {
-        throw new NotImplementedException();
     }
 }

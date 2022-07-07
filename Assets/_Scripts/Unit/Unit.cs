@@ -34,6 +34,9 @@ namespace AetherReign._Scripts.Unit
         public UnityEvent OnTurnCompleted;
         public UnityEvent<SpellHolder> OnSpellCasted;
 
+        [SerializeField] private GameObject _lastTargetedTile;
+        [SerializeField] private List<GameObject> _tilesWithinSelectedSpellRange;
+
         private void Start()
         {
             Initialize();
@@ -81,7 +84,7 @@ namespace AetherReign._Scripts.Unit
             _currentlySelectedSpell = spell;
             IsAimingSpell = true;
             GameGrid.Instance.DisableWalkable();
-            GameGrid.Instance.GetActableTiles(_currentlySelectedSpell.Mezika.SpellRange, true, transform);
+            _tilesWithinSelectedSpellRange = GameGrid.Instance.GetActableTiles(_currentlySelectedSpell.Mezika.SpellRange, true, transform);
         }
 
         private async void Update()
@@ -123,6 +126,47 @@ namespace AetherReign._Scripts.Unit
                 }
 
                 OnTurnCompleted?.Invoke();
+            }
+
+            if (IsAimingSpell)
+            {
+                var mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                if (Physics.Raycast(mouseRay, out var hitInfo, TileLayer))
+                {
+                    if (_tilesWithinSelectedSpellRange.Contains(hitInfo.collider.gameObject))
+                    {
+                        if (hitInfo.collider.gameObject != _lastTargetedTile && _lastTargetedTile != null)
+                        { 
+                            _lastTargetedTile.GetComponent<GridCell>().SpellAoEIsActive = false; 
+                            GameGrid.Instance.DisableSpellAoEVisuals(); 
+                            _lastTargetedTile = null;
+                        }
+                        var tile = hitInfo.collider.GetComponent<GridCell>();
+
+                        if (tile.SpellAoEIsActive == false)
+                        {
+                            _lastTargetedTile = hitInfo.collider.gameObject;
+                            tile.SpellAoEIsActive = true;
+                            var spellAoETiles =
+                                GameGrid.Instance.GetSpellAoETiles(_currentlySelectedSpell.Mezika.SpellCastPointAOE,
+                                    hitInfo.transform);
+                            foreach (var spellAoETile in spellAoETiles)
+                            {
+                                spellAoETile.GetComponent<GridCell>().SpellAoEVisual.SetActive(true);
+                            }
+                        }
+                    }
+                    else if (_lastTargetedTile != null)
+                    {
+                        if (hitInfo.collider.gameObject != _lastTargetedTile)
+                        { 
+                            _lastTargetedTile.GetComponent<GridCell>().SpellAoEIsActive = false; 
+                            GameGrid.Instance.DisableSpellAoEVisuals(); 
+                            _lastTargetedTile = null;
+                        }
+                    }
+                }
             }
         }
 

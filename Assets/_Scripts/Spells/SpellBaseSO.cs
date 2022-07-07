@@ -16,7 +16,7 @@ namespace _Scripts.Spells
         public int Damage;
         public int Heal;
         public int SpellRange;
-        [SerializeField] private int _spellCastPointAOE;
+        public int SpellCastPointAOE;
         public int CooldownTurns;
         public int Accuracy;
         public float SpellScale = 0.1f;

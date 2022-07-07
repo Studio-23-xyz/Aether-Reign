@@ -152,13 +152,27 @@ public class GameGrid : MonoBehaviour
         {
             for (int x = 0; x < _width; x++)
             {
-                GeneratedGrid[x, y].GetComponent<GridCell>().SetTileVisibility(false);
-                GeneratedGrid[x, y].GetComponent<GridCell>().IsWalkable = false;
+                var cell = GeneratedGrid[x, y].GetComponent<GridCell>(); 
+                cell.SetTileVisibility(false);
+                cell.IsWalkable = false;
             }
         }
     }
 
-    public void GetActableTiles(int tileRange, bool isSpell, Transform origin)
+    public void DisableSpellAoEVisuals()
+    {
+        for (int y = 0; y < _height; y++)
+        {
+            for (int x = 0; x < _width; x++)
+            {
+                var cell = GeneratedGrid[x, y].GetComponent<GridCell>();
+                cell.SpellAoEVisual.SetActive(false);
+                cell.SpellAoEIsActive = false;
+            }
+        }
+    }
+
+    public List<GameObject> GetActableTiles(int tileRange, bool isSpell, Transform origin)
     {
         List<GameObject> actableTiles = new List<GameObject>();
         GetXZ(origin.position, out var unitX, out var unitZ);
@@ -187,6 +201,33 @@ public class GameGrid : MonoBehaviour
                 }
             }
         }
+
+        return actableTiles;
+    }
+
+    public List<GameObject> GetSpellAoETiles(int tileRange, Transform origin)
+    {
+        List<GameObject> actableTiles = new List<GameObject>();
+        GetXZ(origin.position, out var unitX, out var unitZ);
+        var lowX = unitX - tileRange;
+        var lowZ = unitZ - tileRange;
+        var highX = unitX + tileRange;
+        var highZ = unitZ + tileRange;
+
+        for (var x = lowX; x <= highX; x++)
+        for (var y = lowZ; y <= highZ; y++)
+        {
+            if (!IsWithinGrid(x, y))
+                continue;
+
+            if (GetPath(new Vector3(unitX, 0f, unitZ), new Vector3(x, 0f, y)).Count <=
+                tileRange)
+            {
+                actableTiles.Add(GeneratedGrid[x, y]);
+            }
+        }
+
+        return actableTiles;
     }
 
     [ContextMenu("Regenerate")]

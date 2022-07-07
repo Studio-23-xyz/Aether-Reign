@@ -8,7 +8,6 @@ public class MazikaSystem : MonoBehaviour
     [SerializeField] private float _maxMana;
 
     [SerializeField] private float _manaRegenAmount;
-    private float _counter;
 
     public float CurrentMana => _currentMana;
 
@@ -49,7 +48,6 @@ public class MazikaSystem : MonoBehaviour
         if (HasEnoughMana(manaToUse))
         {
             _currentMana -= manaToUse;
-            _counter = 0f;
         }
     }
 }

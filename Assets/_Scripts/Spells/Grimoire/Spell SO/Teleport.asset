@@ -19,10 +19,10 @@ MonoBehaviour:
   Damage: 0
   Heal: 0
   SpellRange: 10
-  _spellCastPointAOE: 0
+  SpellCastPointAOE: 0
   CooldownTurns: 6
   Accuracy: 0
-  SpellScale: 0.1
+  SpellScale: 1
   SpellType: 0
   SpellIconSprite: {fileID: 0}
   SpellFX: {fileID: 0}
