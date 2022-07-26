@@ -14,18 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpellName: Sunflare
   SpellDescription: Beam of sunfire rains down on target cell
-  ManaCost: 30
+  ManaCost: 0
   HealthCost: 0
   Damage: 25
   Heal: 0
   SpellRange: 6
-  SpellCastPointAOE: 3
-  CooldownTurns: 4
+  SpellCastPointAOE: 0
+  CooldownTurns: 0
   Accuracy: 0
   SpellScale: 1
-  SpellType: 0
+  VFXLength: 0
+  SpellType: 1
   SpellIconSprite: {fileID: 21300000, guid: 8ec5b52b09d90074a83d61c1334190f9, type: 3}
-  SpellFX: {fileID: 8098658187726565525, guid: b744a3721083c254eb7cef9b9f835947, type: 3}
+  SpellFX: {fileID: 5188293378435054554, guid: 8581b54bbd4476e44a48e97c0da1aef6, type: 3}
   OnSpellCast:
     m_PersistentCalls:
       m_Calls: []

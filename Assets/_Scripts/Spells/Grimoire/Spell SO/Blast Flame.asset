@@ -22,7 +22,7 @@ MonoBehaviour:
   SpellCastPointAOE: 1
   CooldownTurns: 3
   Accuracy: 100
-  SpellScale: 1
+  SpellScale: 0.1
   SpellType: 0
   SpellIconSprite: {fileID: 21300000, guid: 4029a9cfeb86f134c9c5af05993eaac8, type: 3}
   SpellFX: {fileID: 8398201861461398018, guid: 099eb0bceb74fb4428621a4259fa03c2, type: 3}

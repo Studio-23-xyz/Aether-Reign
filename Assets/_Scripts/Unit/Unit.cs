@@ -36,6 +36,7 @@ namespace AetherReign._Scripts.Unit
 
         [SerializeField] private GameObject _lastTargetedTile;
         [SerializeField] private List<GameObject> _tilesWithinSelectedSpellRange;
+        [SerializeField] private Transform _spellCastPoint;
 
         private void Start()
         {
@@ -111,7 +112,7 @@ namespace AetherReign._Scripts.Unit
                 if (IsAimingSpell)
                 {
                     //await TurnTowardsSpellCast(hitPos + TileOffset);
-                    _currentlySelectedSpell.Mezika.CastSpell(transform.position, hitPos + TileOffset,
+                    _currentlySelectedSpell.Mezika.CastSpell(_spellCastPoint.position, hitPos + TileOffset + new Vector3(0f, 0.1f),
                         _currentlySelectedSpell.Mezika.SpellType);
 
                     var marker = Instantiate(CastMarker, hitPos + TileOffset, Quaternion.identity);
