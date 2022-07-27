@@ -26,7 +26,7 @@ MonoBehaviour:
   VFXLength: 0
   SpellType: 0
   SpellIconSprite: {fileID: 21300000, guid: 6a3fb9963fb36ac49ac25095ee92a4fe, type: 3}
-  SpellFX: {fileID: 2336716173713873855, guid: 54dd8b9d3f96e714696197ffe0330669, type: 3}
+  SpellFX: {fileID: 3482156569727189134, guid: 2373898935543514aa3d703184073554, type: 3}
   OnSpellCast:
     m_PersistentCalls:
       m_Calls: []
