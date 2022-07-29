@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8845e7e186ed78442b7e8b6a37314320, type: 3}
+  m_Name: Vine Grip
+  m_EditorClassIdentifier: 
+  SpellName: Vine Grip
+  SpellDescription: Call forth the power of nature and entrap your foe!
+  ManaCost: 0
+  HealthCost: 0
+  Damage: 15
+  Heal: 0
+  SpellRange: 8
+  SpellCastPointAOE: 0
+  CooldownTurns: 0
+  Accuracy: 100
+  SpellScale: 0.65
+  VFXLength: 0
+  SpellType: 0
+  SpellIconSprite: {fileID: 21300000, guid: c3aab7237df394c4890e647a4ae580ea, type: 3}
+  SpellFX: {fileID: 1114644618641193852, guid: ee3e3f34f63820f4fb697e76faaaed35, type: 3}
+  OnSpellCast:
+    m_PersistentCalls:
+      m_Calls: []

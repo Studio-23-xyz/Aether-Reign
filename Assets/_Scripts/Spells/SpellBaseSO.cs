@@ -35,7 +35,7 @@ namespace _Scripts.Spells
 
         public virtual void PointTargetSpell(Vector3 targetPos)
         {
-            _spellFXInstance = Instantiate(SpellFX, targetPos, Quaternion.identity);
+            _spellFXInstance = Instantiate(SpellFX, targetPos, SpellFX.transform.rotation);
             
         }
 
@@ -83,7 +83,7 @@ namespace _Scripts.Spells
             var spellLength = Vector3.Distance(castPos, targetPos);
             CheckForVFXParameters(spellLength);
             _spellFXInstance.transform.localScale = Vector3.one * SpellScale;
-            Destroy(_spellFXInstance, 5f);
+            Destroy(_spellFXInstance, 7f);
             OnSpellCast?.Invoke();
         }
     }
