@@ -65,7 +65,7 @@ MonoBehaviour:
   ForwardSpeed: 14
   SlowdownRate: 0.1
   DetectionRange: 3
-  TileYOffset: 0.5
+  TileYOffset: 0.7
 --- !u!1 &2097889442841239656
 GameObject:
   m_ObjectHideFlags: 0
