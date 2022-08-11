@@ -15,3 +15,9 @@ public enum CellState
     Shocked,
     Poisoned
 }
+
+public enum AIState
+{
+    Idle,
+    Combat
+}

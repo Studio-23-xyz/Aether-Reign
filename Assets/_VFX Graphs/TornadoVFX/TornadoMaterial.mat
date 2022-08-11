@@ -38,7 +38,7 @@ Material:
     - _AlphaClip: 1
     - _Blend: 0
     - _CastShadows: 1
-    - _Cull: 2
+    - _Cull: 0
     - _Dissolve: 0.8
     - _DstBlend: 0
     - _NoisePower: 1
@@ -48,6 +48,10 @@ Material:
     - _SrcBlend: 1
     - _Surface: 0
     - _TwirlAmount: 8
+    - _WobbleAmount: 1
+    - _WobbleFrequency: 1
+    - _WobbleIntensity: 1
+    - _WobbleSpeed: 0
     - _ZTest: 4
     - _ZWrite: 1
     - _ZWriteControl: 0

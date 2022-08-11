@@ -172,7 +172,7 @@ public class GameGrid : MonoBehaviour
         }
     }
 
-    public List<GameObject> GetActableTiles(int tileRange, bool isSpell, Transform origin)
+    public List<GameObject> GetActableTiles(int tileRange, bool isSpell, Transform origin, bool shouldHighlight = true)
     {
         List<GameObject> actableTiles = new List<GameObject>();
         GetXZ(origin.position, out var unitX, out var unitZ);
@@ -195,7 +195,7 @@ public class GameGrid : MonoBehaviour
 
                 if (!cell.IsOccupied)
                 {
-                    cell.SetTileVisibility(true);
+                    cell.SetTileVisibility(shouldHighlight);
                     cell.SetTileVisualColor(isSpell);
                     cell.IsWalkable = true;
                 }
