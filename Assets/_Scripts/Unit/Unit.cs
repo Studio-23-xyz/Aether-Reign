@@ -106,6 +106,8 @@ namespace AetherReign._Scripts.Unit
 
         private async void Update()
         {
+            if (!_canAct)
+                return;
             if (Input.GetMouseButtonDown(0))
             {
                 var hitPos = GetMouseWorldPosition();
