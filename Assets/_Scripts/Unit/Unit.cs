@@ -47,10 +47,23 @@ namespace AetherReign._Scripts.Unit
         {
             _animator = GetComponent<Animator>();
             _agent = GetComponent<NavMeshAgent>();
-            GameGrid.Instance.GetActableTiles(_actionPoints, false, transform);
-
             AvailableSpells = Grimoire.Instance.GetSpells(SpellsToGet);
             AddSpellsToUI();
+
+            GameManager.Instance.RegisterUnit(gameObject);
+        }
+
+        public void StartTurn()
+        {
+            GameGrid.Instance.GetActableTiles(_actionPoints, false, transform);
+            SpellBar.SetActive(true);
+        }
+
+        public void EndTurn()
+        {
+            GameGrid.Instance.DisableWalkable();
+            GameGrid.Instance.DisableSpellAoEVisuals();
+            SpellBar.SetActive(false);
         }
 
         private void AddSpellsToUI()

@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Unity.AI.Navigation;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameGrid : MonoBehaviour
 {
@@ -81,7 +84,7 @@ public class GameGrid : MonoBehaviour
         CreateGrid();
     }
 
-    private void CreateGrid()
+    private async void CreateGrid()
     {
         if (_gridCellPrefab == null)
             Debug.LogError($"No prefab assigned");
@@ -93,6 +96,7 @@ public class GameGrid : MonoBehaviour
                 GeneratedGrid[x, y] = Instantiate(_gridCellPrefab, new Vector3(x, 0f, y) * _gridSpacing, Quaternion.identity, transform);
                 GeneratedGrid[x, y].name = $"Cell {x},{y}";
                 GeneratedGrid[x, y].GetComponent<GridCell>().SetParameters(x, y, walkable: false, occupied: false);
+                await UniTask.Delay(TimeSpan.FromSeconds(0.05f));
             }
         }
 
@@ -228,6 +232,13 @@ public class GameGrid : MonoBehaviour
         }
 
         return actableTiles;
+    }
+
+    public GameObject GetRandomTile()
+    {
+        var randomX = Random.Range(0, GeneratedGrid.GetUpperBound(0));
+        var randomY = Random.Range(0, GeneratedGrid.GetUpperBound(1));
+        return GeneratedGrid[randomX, randomY];
     }
 
     [ContextMenu("Regenerate")]
