@@ -13,6 +13,7 @@ namespace AetherReign._Scripts.Unit
         private Animator _animator;
         private NavMeshAgent _agent;
         public LayerMask TileLayer;
+        private bool _canAct;
         public bool IsMoving;
         public bool IsAimingSpell;
         public bool IsCastingSpell;
@@ -55,12 +56,14 @@ namespace AetherReign._Scripts.Unit
 
         public void StartTurn()
         {
+            _canAct = true;
             GameGrid.Instance.GetActableTiles(_actionPoints, false, transform);
             SpellBar.SetActive(true);
         }
 
         public void EndTurn()
         {
+            _canAct = false;
             GameGrid.Instance.DisableWalkable();
             GameGrid.Instance.DisableSpellAoEVisuals();
             SpellBar.SetActive(false);
