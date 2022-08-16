@@ -101,8 +101,6 @@ public class GameGrid : MonoBehaviour
         }
 
         GeneratedGrid[0, 0].GetComponent<NavMeshSurface>().BuildNavMesh();
-
-        //InitiateCells();
     }
 
     //private void InitiateCells()

@@ -52,16 +52,21 @@ public class GridCell : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Unit") || other.CompareTag("Obstacle"))
+        Debug.Log($"Trigger Enter called");
+        if (other.CompareTag(StringResources.PlayerTag) || other.CompareTag(StringResources.EnemyTag) || other.CompareTag("Obstacle"))
         {
             IsWalkable = false;
-            IsOccupied = false;
+            IsOccupied = true;
         }
+
+        //Debug.Log($"Tile {gameObject.name}, IsWalkable: {IsWalkable} & IsOccupied: {IsOccupied}");
     }
 
     private void OnTriggerExit(Collider other)
     {
         IsWalkable = true;
-        IsOccupied = true;
+        IsOccupied = false;
+
+        //Debug.Log($"Tile {gameObject.name}, IsWalkable: {IsWalkable} & IsOccupied: {IsOccupied}");
     }
 }

@@ -4,5 +4,7 @@ using UnityEngine;
 
 public interface ITurnUnit
 {
-    
+    void BeginTurn();
+
+    void EndTurn();
 }

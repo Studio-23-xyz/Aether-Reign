@@ -8,7 +8,7 @@ using UnityEngine.Events;
 
 namespace AetherReign._Scripts.Unit
 {
-    public class Unit : MonoBehaviour
+    public class Unit : MonoBehaviour, ITurnUnit
     {
         private Animator _animator;
         private NavMeshAgent _agent;
@@ -27,6 +27,7 @@ namespace AetherReign._Scripts.Unit
         public GameObject SpellBar;
         public GameObject UISpellItemPrefab;
 
+        [SerializeField] private int _maxActionPoints = 8;
         [SerializeField] private int _actionPoints;
 
         public List<SpellHolder> AvailableSpells = new();
@@ -49,12 +50,13 @@ namespace AetherReign._Scripts.Unit
             _animator = GetComponent<Animator>();
             _agent = GetComponent<NavMeshAgent>();
             AvailableSpells = Grimoire.Instance.GetSpells(SpellsToGet);
+            _actionPoints = _maxActionPoints;
             AddSpellsToUI();
-
+            SpellBar.SetActive(false);
             GameManager.Instance.RegisterUnit(gameObject);
         }
 
-        public void StartTurn()
+        public void BeginTurn()
         {
             _canAct = true;
             GameGrid.Instance.GetActableTiles(_actionPoints, false, transform);
@@ -120,11 +122,17 @@ namespace AetherReign._Scripts.Unit
 
                     _agent.SetPath(targetPath);
 
+                    SpellBar.SetActive(false);
+
                     var marker = Instantiate(MoveClickMarker, hitPos + TileOffset, Quaternion.identity);
                     marker.transform.localScale = Vector3.one * 0.4f;
                     Destroy(marker, 2f);
 
                     await WaitForMoveFinish();
+
+                    SpellBar.SetActive(true);
+
+                    GameManager.Instance.EndTurn();
                 }
 
                 if (IsAimingSpell)

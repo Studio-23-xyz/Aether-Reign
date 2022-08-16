@@ -1,8 +1,10 @@
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.UI.Image;
 
-public abstract class AIBrain : MonoBehaviour
+public abstract class AIBrain : MonoBehaviour, ITurnUnit
 {
     public AIUnit AIUnit;
 
@@ -25,6 +27,8 @@ public abstract class AIBrain : MonoBehaviour
     private bool _isActing;
 
     #endregion
+
+    public GameObject ProjectilePrefab;
 
     //Todo make state controller
     private AIState _currentState;
@@ -59,7 +63,7 @@ public abstract class AIBrain : MonoBehaviour
     }
 
     [ContextMenu("Move")]
-    public async virtual void Move()
+    public async virtual UniTask Move()
     {
         if (_isActing)
         {
@@ -71,10 +75,11 @@ public abstract class AIBrain : MonoBehaviour
 
         var randomlySelectedTile = actableTiles[Random.Range(0, actableTiles.Count)];
 
-        _agent.CalculatePath(randomlySelectedTile.transform.position + new Vector3(0f, 0.5f, 0f), newPath);
+        _agent.CalculatePath(randomlySelectedTile.transform.position + new Vector3(0f, 0.5f, 0.5f), newPath);
         _agent.SetPath(newPath);
 
         await WaitTillMovementIsComplete();
+        _agent.ResetPath();
     }
 
     private async UniTask WaitTillMovementIsComplete()
@@ -86,5 +91,36 @@ public abstract class AIBrain : MonoBehaviour
             await UniTask.NextFrame();
         }
         _isActing = false;
+    }
+
+    public void BeginTurn()
+    {
+        DecideAction();
+    }
+
+    private async void DecideAction()
+    {
+        var randomPlayerUnit = Random.Range(0, GameManager.Instance.TurnSystemScript.PlayerList.Count);
+        var playerUnit = GameManager.Instance.TurnSystemScript.PlayerList[randomPlayerUnit].transform;
+        GameGrid.Instance.GetXZ(transform.position, out var unitX, out var unitZ);
+        if (GameGrid.Instance.GetPath(new Vector3(unitX, 0f, unitZ),
+                new Vector3(playerUnit.position.x, 0f, playerUnit.position.z)).Count <= _actionPoints)
+        {
+            await AttackTarget(playerUnit);
+        }
+        else 
+            await Move();
+        GameManager.Instance.EndTurn();
+    }
+
+    private async UniTask AttackTarget(Transform playerUnit)
+    {
+        Vector3 directionToPlayer = playerUnit.position - transform.position;
+        Destroy(Instantiate(ProjectilePrefab, transform.position, Quaternion.LookRotation(directionToPlayer)), 3f);
+    }
+
+    public void EndTurn()
+    {
+        
     }
 }

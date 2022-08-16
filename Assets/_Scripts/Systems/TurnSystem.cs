@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class TurnSystem : MonoBehaviour
 {
-    private List<GameObject> _playerList;
-    private List<GameObject> _enemyList;
+    private List<GameObject> _playerList = new List<GameObject>();
+    private List<GameObject> _enemyList = new List<GameObject>();
     public static TurnSystem Instance { get; private set; }
+
+    public List<GameObject> PlayerList => _playerList;
+    public List<GameObject> EnemyList => _enemyList;
 
     private static int _turnNumber;
 
@@ -61,12 +64,20 @@ public class TurnSystem : MonoBehaviour
         }
 
         _currentTurnGo = _turnQueue.Peek();
+        StartTurnRotation();
+    }
+
+    private void StartTurnRotation()
+    {
+        _currentTurnGo?.GetComponent<ITurnUnit>().BeginTurn();
     }
 
     public void TurnEnd()
     {
+        _currentTurnGo?.GetComponent<ITurnUnit>().EndTurn();
         _turnQueue.Enqueue(_turnQueue.Dequeue());
-        OnTurnEnd?.Invoke();
+        _currentTurnGo = _turnQueue.Peek();
+        _currentTurnGo.GetComponent<ITurnUnit>().BeginTurn();
     }
 
     public void NextTurn()

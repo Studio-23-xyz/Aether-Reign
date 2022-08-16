@@ -14,7 +14,7 @@ public class Spawner : MonoBehaviour
         var randomTile2 = GameGrid.Instance.GetRandomTile();
 
         //var spawnPos = GameGrid.Instance.GeneratedGrid[4, 4].transform.position + (new Vector3(0f, 0.5f, 0f));
-        EnemyInstance = Instantiate(EnemyUnit, randomTile2.transform.position, Quaternion.identity);
+        EnemyInstance = Instantiate(EnemyUnit, randomTile2.transform.position + new Vector3(0f, 0.5f, 0.5f), Quaternion.identity);
         //PlayerInstance = Instantiate(PlayerUnit, randomTile1.transform.position, Quaternion.identity);
     }
 
