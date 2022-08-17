@@ -73,7 +73,7 @@ public class GameGrid : MonoBehaviour
         InitiateGrid(_height, _width, _gridSpacing);
     }
 
-    public void InitiateGrid(int height, int width, float spacing = 0f)
+    public async UniTask InitiateGrid(int height, int width, float spacing = 0f)
     {
         _height = height;
         _width = width;
@@ -81,10 +81,10 @@ public class GameGrid : MonoBehaviour
 
         GeneratedGrid = new GameObject[_height, _width];
 
-        CreateGrid();
+        await CreateGrid();
     }
 
-    private async void CreateGrid()
+    private async UniTask CreateGrid()
     {
         if (_gridCellPrefab == null)
             Debug.LogError($"No prefab assigned");
@@ -96,9 +96,11 @@ public class GameGrid : MonoBehaviour
                 GeneratedGrid[x, y] = Instantiate(_gridCellPrefab, new Vector3(x, 0f, y) * _gridSpacing, Quaternion.identity, transform);
                 GeneratedGrid[x, y].name = $"Cell {x},{y}";
                 GeneratedGrid[x, y].GetComponent<GridCell>().SetParameters(x, y, walkable: false, occupied: false);
-                await UniTask.Delay(TimeSpan.FromSeconds(0.05f));
+                //await UniTask.Delay(TimeSpan.FromSeconds(0.05f));
             }
         }
+
+        await UniTask.Delay(TimeSpan.FromSeconds(1f));
 
         GeneratedGrid[0, 0].GetComponent<NavMeshSurface>().BuildNavMesh();
     }

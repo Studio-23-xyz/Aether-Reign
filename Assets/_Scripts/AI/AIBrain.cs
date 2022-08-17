@@ -1,16 +1,14 @@
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.UI.Image;
 
-public abstract class AIBrain : MonoBehaviour, ITurnUnit
+public abstract class AIBrain : MonoBehaviour, ITurnUnit, IDamageable
 {
     public AIUnit AIUnit;
 
     #region Params
 
-    public string _unitName;
+    private string _unitName;
     private float _hp;
     private float _maxHp;
     private float _mp;
@@ -28,7 +26,26 @@ public abstract class AIBrain : MonoBehaviour, ITurnUnit
 
     #endregion
 
+    #region Interface Params
+
+    public float Health
+    {
+        get => _hp;
+        set => _hp = value;
+    }
+
+    public void RegisterDamage(float damageAmount)
+    {
+        _hp = _hp - damageAmount;
+        if (_hp <= 0f)
+            _hp = 0f;
+    }
+
+    #endregion
+
+    [SerializeField] private Transform _projectileInstantiationPoint;
     public GameObject ProjectilePrefab;
+    private Animator _animator;
 
     //Todo make state controller
     private AIState _currentState;
@@ -38,6 +55,7 @@ public abstract class AIBrain : MonoBehaviour, ITurnUnit
     private void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
+        //_animator = GetComponent<Animator>();
         SetupUnit(AIUnit);
         GameManager.Instance.RegisterUnit(gameObject);
     }
@@ -85,11 +103,13 @@ public abstract class AIBrain : MonoBehaviour, ITurnUnit
     private async UniTask WaitTillMovementIsComplete()
     {
         _isActing = true;
+        //_animator.SetBool("IsMoving", true);
         while (_agent.hasPath)
         {
             await UniTask.Yield();
             await UniTask.NextFrame();
         }
+        //_animator.SetBool("IsMoving", false);
         _isActing = false;
     }
 
@@ -107,8 +127,9 @@ public abstract class AIBrain : MonoBehaviour, ITurnUnit
                 new Vector3(playerUnit.position.x, 0f, playerUnit.position.z)).Count <= _actionPoints)
         {
             await AttackTarget(playerUnit);
+            return;
         }
-        else 
+        else
             await Move();
         GameManager.Instance.EndTurn();
     }
@@ -116,11 +137,17 @@ public abstract class AIBrain : MonoBehaviour, ITurnUnit
     private async UniTask AttackTarget(Transform playerUnit)
     {
         Vector3 directionToPlayer = playerUnit.position - transform.position;
-        Destroy(Instantiate(ProjectilePrefab, transform.position, Quaternion.LookRotation(directionToPlayer)), 3f);
+        await RotateTowardsPlayer(directionToPlayer);
+        Instantiate(ProjectilePrefab, _projectileInstantiationPoint.position, Quaternion.LookRotation(directionToPlayer, Vector3.up));
+    }
+
+    private async UniTask RotateTowardsPlayer(Vector3 playerDirection)
+    {
+        transform.rotation = Quaternion.LookRotation(playerDirection);
     }
 
     public void EndTurn()
     {
-        
+
     }
 }

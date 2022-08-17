@@ -52,7 +52,6 @@ public class GridCell : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Trigger Enter called");
         if (other.CompareTag(StringResources.PlayerTag) || other.CompareTag(StringResources.EnemyTag) || other.CompareTag("Obstacle"))
         {
             IsWalkable = false;

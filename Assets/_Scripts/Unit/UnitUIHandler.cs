@@ -10,7 +10,7 @@ namespace AetherReign._Scripts.Unit
 
         private void Update()
         {
-            ManaCircle.fillAmount = MazikaSystem.Instance.CurrentMana / 100f;
+            //ManaCircle.fillAmount = MazikaSystem.Instance.CurrentMana / 100f;
         }
     }
 }

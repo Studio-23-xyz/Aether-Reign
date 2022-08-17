@@ -78,9 +78,10 @@ public class TurnSystem : MonoBehaviour
         _turnQueue.Enqueue(_turnQueue.Dequeue());
         _currentTurnGo = _turnQueue.Peek();
         _currentTurnGo.GetComponent<ITurnUnit>().BeginTurn();
+        //NextTurn();
     }
 
-    public void NextTurn()
+    private void NextTurn()
     {
         _turnNumber++;
         UpdateTurnCountInUI();
